@@ -16,10 +16,10 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: executing remote ssh commands using password
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.UNAME }}
-            password: ${{ secrets.PSWD }}
-            port: 2244
-            script: whoami
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.UNAME }}
+          password: ${{ secrets.PSWD }}
+          port: 2244
+          script: whoami
