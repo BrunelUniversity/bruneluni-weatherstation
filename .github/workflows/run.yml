@@ -22,4 +22,4 @@ jobs:
           username: ${{ secrets.UNAME }}
           password: ${{ secrets.PSWD }}
           port: 2244
-          script: whoami
+          script: echo ${{ github.run_number }} > example.txt
