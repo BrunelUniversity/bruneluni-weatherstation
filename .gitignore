@@ -7,3 +7,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 /.idea
+
+# Env Settings
+*settings*.json
