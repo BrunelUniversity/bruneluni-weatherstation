@@ -1,0 +1,9 @@
+# .Net Artifacts
+bin/
+obj/
+/packages/
+
+# JetBrains Settings
+riderModule.iml
+/_ReSharper.Caches/
+/.idea
