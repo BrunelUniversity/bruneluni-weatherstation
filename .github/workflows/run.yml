@@ -1,0 +1,25 @@
+name: Run
+on:
+  push:
+    branches: [ trunk ]
+jobs:
+  compile-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      UNAME: ${{ secrets.UNAME }}
+      PSWD: ${{ secrets.PSWD }}
+      HOST: ${{ secrets.HOST }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Deploy
+        run: |
+          dotnet build
+          ssh ${{ env.UNAME }}@${{ env.HOST }} -p 2244
+          yes
+          ${{ env.PSWD }}
+          dir
+          ls
