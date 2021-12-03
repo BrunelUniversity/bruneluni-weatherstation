@@ -34,8 +34,5 @@ jobs:
           password: ${{ secrets.PSWD }}
           port: 2244
           script: |
-            cd published
-            cd published
-            export DOTNET_ROOT=$HOME/dotnet
-            export PATH=$PATH:$HOME/dotnet
-            dotnet BrunelUni.WeatherStation.API.dll
+            sudo systemctl restart nginx
+            sudo systemctl restart weatherstation
