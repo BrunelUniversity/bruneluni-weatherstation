@@ -36,4 +36,5 @@ jobs:
           script: |
             cd published
             cd published
-            dotnet run BrunelUni.WeatherStation.API.dll
+            ls
+            dotnet BrunelUni.WeatherStation.API.dll
