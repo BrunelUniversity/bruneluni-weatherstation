@@ -4,4 +4,8 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Unosquare.WiringPi" Version="0.5.1" />
+    </ItemGroup>
+
 </Project>
