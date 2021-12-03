@@ -16,7 +16,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: publish api
-        run: dotnet publish BrunelUni.WeatherStation.API -o ./published -c Release
+        run: dotnet publish BrunelUni.WeatherStation.API -o ./published -c Release -r linux-arm
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
@@ -33,4 +33,4 @@ jobs:
           username: ${{ secrets.UNAME }}
           password: ${{ secrets.PSWD }}
           port: 2244
-          script: echo ${{ github.run_number }} > run_number.txt
+          script: dotnet published/published/BrunelUni.WeatherStation.API.dll
