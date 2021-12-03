@@ -33,4 +33,7 @@ jobs:
           username: ${{ secrets.UNAME }}
           password: ${{ secrets.PSWD }}
           port: 2244
-          script: dotnet published/published/BrunelUni.WeatherStation.API.dll
+          script: |
+            cd published
+            cd published
+            dotnet BrunelUni.WeatherStation.API.dll
