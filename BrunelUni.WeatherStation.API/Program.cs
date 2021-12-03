@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Unosquare.RaspberryIO;
+using Unosquare.WiringPi;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -10,6 +11,7 @@ app.MapGet("/test", ( ) =>
 {
     try
     {
+        Pi.Init<BootstrapWiringPi>();
         var device = Pi.I2C.AddDevice( 0x38 );
         Task.Delay( 500 );
         var status = device.ReadAddressWord( 0x71 );
