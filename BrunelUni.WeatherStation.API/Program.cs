@@ -6,5 +6,6 @@ var app = builder.Build();
 
 app.MapGet("/temperature", () => new Random().Next());
 app.MapGet("/humidity", () => new Random().Next());
+app.MapGet( "/run", ( ) => "test" );
 
 app.Run();

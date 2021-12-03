@@ -36,5 +36,6 @@ jobs:
           script: |
             cd published
             cd published
-            ls
+            export DOTNET_ROOT=$HOME/dotnet
+            export PATH=$PATH:$HOME/dotnet
             dotnet BrunelUni.WeatherStation.API.dll
