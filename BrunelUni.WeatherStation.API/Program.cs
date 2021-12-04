@@ -44,6 +44,13 @@ app.MapGet("/test", ( ) =>
         
         Read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
 
+        var humRaw = new [ ]
+        {
+            secondReadBytes[ 1 ] << 16,
+            secondReadBytes[ 2 ] << 8,
+            ( secondReadBytes[ 3 ] >> 4 ) & 0xF0
+        }.Sum();
+        
         var tempRaw = new [ ]
         {
             secondReadBytes[ 3 ] & 0x0F << 16,
@@ -51,7 +58,7 @@ app.MapGet("/test", ( ) =>
             secondReadBytes[ 5 ]
         }.Sum();
 
-        return $"temperature {( tempRaw / Math.Pow( 2, 20 ) ) * ( 200 - 50 )}";
+        return $"temperature {( tempRaw / Math.Pow( 2, 20 ) ) * ( 200 - 50 )} humidity {( tempRaw / Math.Pow( 2, 20 ) ) * ( 100 )}";
     }
     catch( Exception e )
     {
