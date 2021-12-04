@@ -58,11 +58,13 @@ app.MapGet("/test", ( ) =>
             secondReadBytes[ 5 ]
         }.Sum();
 
+        var returnVal = secondReadBytes.Skip( 1 ).Aggregate( "", ( current, b ) => current + $"byte{Array.IndexOf( secondReadBytes, b )}: {b}" );
+
         var temperature = ( tempRaw / Math.Pow( 2, 20 ) ) * ( 200 - 50 );
 
         var humidity = ( humRaw / Math.Pow( 2, 20 ) ) * ( 100 );
         
-        return $"temperature {temperature} raw temp {tempRaw} humidity {humidity} raw hum {humRaw}";
+        return returnVal;
     }
     catch( Exception e )
     {
