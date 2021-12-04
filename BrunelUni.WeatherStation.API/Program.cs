@@ -1,5 +1,8 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using BrunelUni.WeatherStation.API;
 using Microsoft.AspNetCore.Builder;
@@ -9,26 +12,64 @@ var app = builder.Build();
 
 const int openReadWrite = 2;
 const int i2CSlave = 0x0703;
+const int rtldNow = 2;
+
+[ DllImport( "libdl.so", EntryPoint = "dlopen" ) ]
+static extern IntPtr LoadLibrary( string filename, int flags );
+
+[ DllImport( "libdl.so", EntryPoint = "dlsym"  ) ]
+static extern IntPtr GetProcAddress( IntPtr handle, string symbol );
+
+TFunc loadFunction<TFunc, TWrapper>( ) where TFunc : Delegate
+{
+    var libWrapperMethodInfo = typeof( TFunc ).GetMethod( typeof( TFunc ).Name );
+    Func<Type[], Type> getType;
+    var isAction = libWrapperMethodInfo.ReturnType == typeof( void );
+    var types = libWrapperMethodInfo.GetParameters( ).Select( p => p.ParameterType );
+
+    if( isAction ) { getType = Expression.GetActionType; }
+    else
+    {
+        getType = Expression.GetFuncType;
+        types = types.Concat( new [ ] { libWrapperMethodInfo.ReturnType } );
+    }
+
+    var @delegate = Delegate.CreateDelegate( getType( types.ToArray( ) ), libWrapperMethodInfo );
+    var dllPath = typeof( TWrapper )
+        .GetCustomAttribute<LibWrapperAttribute>()?
+        .Name;
+    var hModule = LoadLibrary( dllPath, rtldNow );
+    var functionAddress = GetProcAddress( hModule, libWrapperMethodInfo.Name.ToLower( ) );
+    return Marshal.GetDelegateForFunctionPointer( functionAddress, @delegate.GetType(  ) ) as TFunc;
+}
+
+int open( string fileName, int mode ) => loadFunction<Open, LibCWrapper>( ).Invoke( fileName, mode );
+
+int ioctl( int fd, int request, int data ) => loadFunction<Ioctl, LibCWrapper>( ).Invoke( fd, request, data );
+
+int read( int handle, byte [ ] data, int length ) => loadFunction<Read, LibCWrapper>( ).Invoke( handle, data, length );
+
+int write( int handle, byte [ ] data, int length ) => loadFunction<Write, LibCWrapper>( ).Invoke( handle, data, length );
 
 app.MapGet("/test", ( ) =>
 {
     try
     {
-        var i2CBushandle = LibCWrapper.Open( "/dev/i2c-1", openReadWrite );
+        var i2CBushandle = open( "/dev/i2c-1", openReadWrite );
 
         const int registerAddress = 0x38;
-        var deviceReturnCode = LibCWrapper.Ioctl( i2CBushandle, i2CSlave, registerAddress );
+        var deviceReturnCode = ioctl( i2CBushandle, i2CSlave, registerAddress );
 
         Task.Delay( 500 );
 
         var writeData = new byte [ ] { 0xac, 0x33, 0x00 };
 
-        LibCWrapper.Write( i2CBushandle, writeData, writeData.Length );
+        write( i2CBushandle, writeData, writeData.Length );
         Task.Delay( 100 );
 
         var secondReadBytes = new byte[ ] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         
-        LibCWrapper.Read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
+        read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
         
         var tempRaw = new [ ]
         {
