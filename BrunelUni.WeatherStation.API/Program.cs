@@ -22,8 +22,6 @@ static extern int Read( int handle, byte[] data, int length );
 [ DllImport( "libc.so.6", EntryPoint = "write", SetLastError = true ) ]
 static extern int Write( int handle, byte[] data, int length );
 
-
-
 app.MapGet("/test", ( ) =>
 {
     try
@@ -46,16 +44,16 @@ app.MapGet("/test", ( ) =>
 
         var humRaw = new [ ]
         {
-            secondReadBytes[ 1 ] << 16,
+            secondReadBytes[ 1 ],
             secondReadBytes[ 2 ] << 8,
-            secondReadBytes[ 3 ] >> 4 
+            ( secondReadBytes[ 3 ] & 0xF0 ) << 12
         }.Sum();
         
         var tempRaw = new [ ]
         {
-            secondReadBytes[ 3 ] << 16,
+            secondReadBytes[ 3 ] & 0x0F,
             secondReadBytes[ 4 ] << 8,
-            secondReadBytes[ 5 ]
+            secondReadBytes[ 5 ] << 16
         }.Sum();
 
         var returnVal = secondReadBytes.Skip( 1 ).Aggregate( "", ( current, b ) => current + $"byte{Array.IndexOf( secondReadBytes, b )}: {b} " );
