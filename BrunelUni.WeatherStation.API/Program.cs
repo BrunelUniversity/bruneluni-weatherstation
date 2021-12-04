@@ -53,9 +53,14 @@ app.MapGet("/test", ( ) =>
 
         var traw = ( ( secondReadBytes[ 3 ] & 0xf ) << 16 ) + ( secondReadBytes[ 4 ] << 8 ) + secondReadBytes[ 5 ];
 
+        var temperature = 200 * ( double )traw / ( 2 ^ 20 - 50 );
+
         var hraw = ( ( secondReadBytes[ 3 ] & 0xf0 ) >> 4 ) + ( secondReadBytes[ 1 ] << 12 ) +
                ( secondReadBytes[ 2 ] << 4 );
-        return$"temp {traw} humidity {hraw}";
+        
+        var humidity = 100 * ( double )hraw / ( 2 ^ 20 );
+
+        return$"temp {temperature} humidity {humidity}";
     }
     catch( Exception e )
     {
