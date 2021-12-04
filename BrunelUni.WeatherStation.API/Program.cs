@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using BrunelUni.WeatherStation.API;
 using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,38 +9,26 @@ var app = builder.Build();
 
 const int openReadWrite = 2;
 const int i2CSlave = 0x0703;
- 
-[ DllImport( "libc.so.6", EntryPoint = "open" ) ]
-static extern int Open( string fileName, int mode );
- 
-[ DllImport( "libc.so.6", EntryPoint = "ioctl", SetLastError = true ) ]
-static extern int Ioctl( int fd, int request, int data );
- 
-[ DllImport( "libc.so.6", EntryPoint = "read", SetLastError = true ) ]
-static extern int Read( int handle, byte[] data, int length );
-
-[ DllImport( "libc.so.6", EntryPoint = "write", SetLastError = true ) ]
-static extern int Write( int handle, byte[] data, int length );
 
 app.MapGet("/test", ( ) =>
 {
     try
     {
-        var i2CBushandle = Open( "/dev/i2c-1", openReadWrite );
+        var i2CBushandle = LibCWrapper.Open( "/dev/i2c-1", openReadWrite );
 
         const int registerAddress = 0x38;
-        var deviceReturnCode = Ioctl( i2CBushandle, i2CSlave, registerAddress );
+        var deviceReturnCode = LibCWrapper.Ioctl( i2CBushandle, i2CSlave, registerAddress );
 
         Task.Delay( 500 );
 
         var writeData = new byte [ ] { 0xac, 0x33, 0x00 };
 
-        Write( i2CBushandle, writeData, writeData.Length );
+        LibCWrapper.Write( i2CBushandle, writeData, writeData.Length );
         Task.Delay( 100 );
 
         var secondReadBytes = new byte[ ] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         
-        Read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
+        LibCWrapper.Read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
         
         var tempRaw = new [ ]
         {

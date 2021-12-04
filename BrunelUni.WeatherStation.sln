@@ -1,16 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.API", "BrunelUni.WeatherStation.API\BrunelUni.WeatherStation.API.csproj", "{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrunelUni.WeatherStation.API", "BrunelUni.WeatherStation.API\BrunelUni.WeatherStation.API.csproj", "{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Debug|x64.Build.0 = Debug|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Debug|x86.Build.0 = Debug|Any CPU
 		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|x64.Build.0 = Release|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53CE4494-89DE-4412-973A-6B9F18560D09}
 	EndGlobalSection
 EndGlobal
