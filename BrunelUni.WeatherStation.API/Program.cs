@@ -51,9 +51,9 @@ app.MapGet("/test", ( ) =>
         
         var tempRaw = new [ ]
         {
-            secondReadBytes[ 3 ] & 0x0F,
+            ( secondReadBytes[ 3 ] & 0x0F ) << 16,
             secondReadBytes[ 4 ] << 8,
-            secondReadBytes[ 5 ] << 16
+            secondReadBytes[ 5 ]
         }.Sum();
 
         var returnVal = secondReadBytes.Skip( 1 ).Aggregate( "", ( current, b ) => current + $"byte{Array.IndexOf( secondReadBytes, b )}: {b} " );
