@@ -48,17 +48,21 @@ app.MapGet("/test", ( ) =>
         {
             secondReadBytes[ 1 ] << 16,
             secondReadBytes[ 2 ] << 8,
-            ( secondReadBytes[ 3 ] >> 4 ) & 0xF0
+            ( secondReadBytes[ 3 ] & 0xF0 ) >> 4 
         }.Sum();
         
         var tempRaw = new [ ]
         {
-            secondReadBytes[ 3 ] & 0x0F << 16,
+            ( secondReadBytes[ 3 ] & 0x0F ) << 16,
             secondReadBytes[ 4 ] << 8,
             secondReadBytes[ 5 ]
         }.Sum();
 
-        return $"temperature {( tempRaw / Math.Pow( 2, 20 ) ) * ( 200 - 50 )} humidity {( tempRaw / Math.Pow( 2, 20 ) ) * ( 100 )}";
+        var temperature = ( tempRaw / Math.Pow( 2, 20 ) ) * ( 200 - 50 );
+
+        var humidity = ( humRaw / Math.Pow( 2, 20 ) ) * ( 100 );
+        
+        return $"temperature {temperature} raw temp {tempRaw} humidity {humidity} raw hum {humRaw}";
     }
     catch( Exception e )
     {
