@@ -4,4 +4,12 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Aidan.Common.Utils" Version="1.0.22" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BrunelUni.WeatherStation.Crosscutting.DIModule\BrunelUni.WeatherStation.Crosscutting.DIModule.csproj" />
+    </ItemGroup>
+
 </Project>

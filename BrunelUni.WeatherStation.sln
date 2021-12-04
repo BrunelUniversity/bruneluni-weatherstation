@@ -2,6 +2,18 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.API", "BrunelUni.WeatherStation.API\BrunelUni.WeatherStation.API.csproj", "{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.Crosscutting.DIModule", "BrunelUni.WeatherStation.Crosscutting.DIModule\BrunelUni.WeatherStation.Crosscutting.DIModule.csproj", "{9C989E51-5B9E-4D3E-AE3A-AD85FEFCBB63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.Core", "BrunelUni.WeatherStation.Core\BrunelUni.WeatherStation.Core.csproj", "{C7C42727-0271-4D46-8A49-B07C0071F5C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.HAL", "BrunelUni.WeatherStation.HAL\BrunelUni.WeatherStation.HAL.csproj", "{61FA3DDC-4A5C-4850-9553-7C80DD7422BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.DAL", "BrunelUni.WeatherStation.DAL\BrunelUni.WeatherStation.DAL.csproj", "{DDED5887-117A-4003-A472-F71C83783EC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.HAL.DIModule", "BrunelUni.WeatherStation.HAL.DIModule\BrunelUni.WeatherStation.HAL.DIModule.csproj", "{0E6E3717-C384-4C5E-96E3-B877F8D272EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.DAL.DIModule", "BrunelUni.WeatherStation.DAL.DIModule\BrunelUni.WeatherStation.DAL.DIModule.csproj", "{BCD028D9-336A-47F9-9DEF-868FF36848CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +24,29 @@ Global
 		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBE19974-8421-4F8A-8097-A59B9BF3C1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C989E51-5B9E-4D3E-AE3A-AD85FEFCBB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C989E51-5B9E-4D3E-AE3A-AD85FEFCBB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C989E51-5B9E-4D3E-AE3A-AD85FEFCBB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C989E51-5B9E-4D3E-AE3A-AD85FEFCBB63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7C42727-0271-4D46-8A49-B07C0071F5C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C42727-0271-4D46-8A49-B07C0071F5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C42727-0271-4D46-8A49-B07C0071F5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C42727-0271-4D46-8A49-B07C0071F5C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61FA3DDC-4A5C-4850-9553-7C80DD7422BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61FA3DDC-4A5C-4850-9553-7C80DD7422BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61FA3DDC-4A5C-4850-9553-7C80DD7422BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61FA3DDC-4A5C-4850-9553-7C80DD7422BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDED5887-117A-4003-A472-F71C83783EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDED5887-117A-4003-A472-F71C83783EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDED5887-117A-4003-A472-F71C83783EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDED5887-117A-4003-A472-F71C83783EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E6E3717-C384-4C5E-96E3-B877F8D272EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E6E3717-C384-4C5E-96E3-B877F8D272EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E6E3717-C384-4C5E-96E3-B877F8D272EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E6E3717-C384-4C5E-96E3-B877F8D272EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

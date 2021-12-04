@@ -4,9 +4,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using BrunelUni.WeatherStation.API;
+using BrunelUni.WeatherStation.Crosscutting.DIModule;
 using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.BindCrosscuttingLayer( );
 var app = builder.Build();
 
 const int openReadWrite = 2;
