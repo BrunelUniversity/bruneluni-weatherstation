@@ -40,7 +40,7 @@ app.MapGet("/test", ( ) =>
         Write( i2CBushandle, writeData, writeData.Length );
         Task.Delay( 100 );
 
-        var secondReadBytes = new byte[ ] { 0x71, 0x00, 0x00, 0x00, 0x00, 0x00 };
+        var secondReadBytes = new byte[ ] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         
         Read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
 
