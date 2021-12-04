@@ -44,9 +44,9 @@ app.MapGet("/test", ( ) =>
 
         var humRaw = new [ ]
         {
-            secondReadBytes[ 1 ],
-            secondReadBytes[ 2 ] << 8,
-            ( secondReadBytes[ 3 ] & 0xF0 ) << 12
+            secondReadBytes[ 1 ] << 12,
+            secondReadBytes[ 2 ] << 4,
+            ( secondReadBytes[ 3 ] & 0xF0 ) >> 4
         }.Sum();
         
         var tempRaw = new [ ]
