@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -33,14 +34,6 @@ app.MapGet("/test", ( ) =>
         var deviceReturnCode = Ioctl( i2CBushandle, i2CSlave, registerAddress );
 
         Task.Delay( 500 );
-        
-        var readBytes = new byte[ ] { 0x71 };
-
-        Read( i2CBushandle, readBytes, readBytes.Length );
-        if( ( readBytes[ 0 ] | 0x08 ) == 0 )
-        {
-            return "error";
-        }
 
         var writeData = new byte [ ] { 0xac, 0x33, 0x00 };
 
@@ -51,16 +44,14 @@ app.MapGet("/test", ( ) =>
         
         Read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
 
-        var traw = ( ( secondReadBytes[ 3 ] & 0xf ) << 16 ) + ( secondReadBytes[ 4 ] << 8 ) + secondReadBytes[ 5 ];
+        var tempRaw = new [ ]
+        {
+            secondReadBytes[ 3 ] & 0x0F << 16,
+            secondReadBytes[ 4 ] << 8,
+            secondReadBytes[ 5 ]
+        }.Sum();
 
-        var temperature = 200 * ( double )traw / ( 2 ^ 20 - 50 );
-
-        var hraw = ( ( secondReadBytes[ 3 ] & 0xf0 ) >> 4 ) + ( secondReadBytes[ 1 ] << 12 ) +
-               ( secondReadBytes[ 2 ] << 4 );
-        
-        var humidity = 100 * ( double )hraw / ( 2 ^ 20 );
-
-        return$"temp {temperature} humidity {humidity}";
+        return $"temperature {( tempRaw / Math.Pow( 2, 20 ) ) * ( 200 - 50 )}";
     }
     catch( Exception e )
     {
