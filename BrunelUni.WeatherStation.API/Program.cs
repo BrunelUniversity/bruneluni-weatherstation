@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -22,25 +21,12 @@ static extern IntPtr GetProcAddress( IntPtr handle, string symbol );
 
 TFunc loadFunction<TFunc, TWrapper>( ) where TFunc : Delegate
 {
-    var libWrapperMethodInfo = typeof( TFunc ).GetMethod( typeof( TFunc ).Name );
-    Func<Type[], Type> getType;
-    var isAction = libWrapperMethodInfo.ReturnType == typeof( void );
-    var types = libWrapperMethodInfo.GetParameters( ).Select( p => p.ParameterType );
-
-    if( isAction ) { getType = Expression.GetActionType; }
-    else
-    {
-        getType = Expression.GetFuncType;
-        types = types.Concat( new [ ] { libWrapperMethodInfo.ReturnType } );
-    }
-
-    var @delegate = Delegate.CreateDelegate( getType( types.ToArray( ) ), libWrapperMethodInfo );
     var dllPath = typeof( TWrapper )
         .GetCustomAttribute<LibWrapperAttribute>()?
         .Name;
     var hModule = LoadLibrary( dllPath, rtldNow );
-    var functionAddress = GetProcAddress( hModule, libWrapperMethodInfo.Name.ToLower( ) );
-    return Marshal.GetDelegateForFunctionPointer( functionAddress, @delegate.GetType(  ) ) as TFunc;
+    var functionAddress = GetProcAddress( hModule, typeof( TFunc ).Name.ToLower( ) );
+    return Marshal.GetDelegateForFunctionPointer( functionAddress, typeof( TFunc ) ) as TFunc;
 }
 
 int open( string fileName, int mode ) => loadFunction<Open, LibCWrapper>( ).Invoke( fileName, mode );
