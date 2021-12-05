@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using BrunelUni.WeatherStation.API;
 using BrunelUni.WeatherStation.Crosscutting.DIModule;
 using Microsoft.AspNetCore.Builder;
 
@@ -13,50 +11,38 @@ var app = builder.Build();
 
 const int openReadWrite = 2;
 const int i2CSlave = 0x0703;
-const int rtldNow = 2;
 
-[ DllImport( "libdl.so", EntryPoint = "dlopen" ) ]
-static extern IntPtr LoadLibrary( string filename, int flags );
+const string dllName = "libdl.so";
 
-[ DllImport( "libdl.so", EntryPoint = "dlsym"  ) ]
-static extern IntPtr GetProcAddress( IntPtr handle, string symbol );
+[ DllImport( dllName, EntryPoint = "open" ) ]
+static extern int Open( string fileName, int mode );
 
-TFunc loadFunction<TFunc, TWrapper>( ) where TFunc : Delegate
-{
-    var dllPath = typeof( TWrapper )
-        .GetCustomAttribute<LibWrapperAttribute>()?
-        .Name;
-    var hModule = LoadLibrary( dllPath, rtldNow );
-    var functionAddress = GetProcAddress( hModule, typeof( TFunc ).Name.ToLower( ) );
-    return Marshal.GetDelegateForFunctionPointer( functionAddress, typeof( TFunc ) ) as TFunc;
-}
+[ DllImport( dllName, EntryPoint = "ioctl" ) ]
+static extern int Ioctl( int fd, int request, int data );
 
-int open( string fileName, int mode ) => loadFunction<Open, LibCWrapper>( ).Invoke( fileName, mode );
+[ DllImport( dllName, EntryPoint = "read" ) ]
+static extern int Read( int handle, byte [ ] data, int length );
 
-int ioctl( int fd, int request, int data ) => loadFunction<Ioctl, LibCWrapper>( ).Invoke( fd, request, data );
-
-int read( int handle, byte [ ] data, int length ) => loadFunction<Read, LibCWrapper>( ).Invoke( handle, data, length );
-
-int write( int handle, byte [ ] data, int length ) => loadFunction<Write, LibCWrapper>( ).Invoke( handle, data, length );
-
+[ DllImport( dllName, EntryPoint = "write" ) ]
+static extern int Write( int handle, byte [ ] data, int length );
 
 app.MapGet("/test", ( ) =>
 {
-    var i2CBushandle = open( "/dev/i2c-1", openReadWrite );
+    var i2CBushandle = Open( "/dev/i2c-1", openReadWrite );
 
     const int registerAddress = 0x38;
-    var deviceReturnCode = ioctl( i2CBushandle, i2CSlave, registerAddress );
+    var deviceReturnCode = Ioctl( i2CBushandle, i2CSlave, registerAddress );
 
     Task.Delay( 500 );
 
     var writeData = new byte [ ] { 0xac, 0x33, 0x00 };
 
-    write( i2CBushandle, writeData, writeData.Length );
+    Write( i2CBushandle, writeData, writeData.Length );
     Task.Delay( 100 );
 
     var secondReadBytes = new byte[ ] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         
-    read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
+    Read( i2CBushandle, secondReadBytes, secondReadBytes.Length );
         
     var tempRaw = new [ ]
     {
@@ -71,8 +57,6 @@ app.MapGet("/test", ( ) =>
         secondReadBytes[ 2 ] << 4,
         ( secondReadBytes[ 3 ] & 0xF0 ) >> 4
     }.Sum();
-
-    var returnVal = secondReadBytes.Skip( 1 ).Aggregate( "", ( current, b ) => current + $"byte{Array.IndexOf( secondReadBytes, b )}: {b} " );
 
     var temperature = ( ( tempRaw / Math.Pow( 2, 20 ) ) * ( 200 ) ) - 50;
 
