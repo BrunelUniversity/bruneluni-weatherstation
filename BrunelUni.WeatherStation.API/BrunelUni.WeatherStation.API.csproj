@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BrunelUni.WeatherStation.Crosscutting.DIModule\BrunelUni.WeatherStation.Crosscutting.DIModule.csproj" />
+      <ProjectReference Include="..\BrunelUni.WeatherStation.HAL.DIModule\BrunelUni.WeatherStation.HAL.DIModule.csproj" />
     </ItemGroup>
 
 </Project>

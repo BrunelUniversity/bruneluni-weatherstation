@@ -4,4 +4,8 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BrunelUni.WeatherStation.Core\BrunelUni.WeatherStation.Core.csproj" />
+    </ItemGroup>
+
 </Project>

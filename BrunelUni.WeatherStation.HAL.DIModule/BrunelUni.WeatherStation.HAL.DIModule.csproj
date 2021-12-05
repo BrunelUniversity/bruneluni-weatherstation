@@ -4,4 +4,14 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Aidan.Common.DependencyInjection" Version="1.0.4" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BrunelUni.WeatherStation.Core\BrunelUni.WeatherStation.Core.csproj" />
+      <ProjectReference Include="..\BrunelUni.WeatherStation.HAL\BrunelUni.WeatherStation.HAL.csproj" />
+    </ItemGroup>
+
 </Project>
