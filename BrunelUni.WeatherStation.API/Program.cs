@@ -5,6 +5,7 @@ using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Crosscutting.DIModule;
 using BrunelUni.WeatherStation.HAL.DIModule;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
@@ -12,7 +13,7 @@ builder.Services
     .BindHardwareLayer( );
 var app = builder.Build();
 
-app.MapGet("/test", ( I2CPiServiceFactory i2CPiServiceFactory ) =>
+app.MapGet("/test", ( [ FromServices ] I2CPiServiceFactory i2CPiServiceFactory ) =>
 {
     var i2CPiService = i2CPiServiceFactory.Factory( 0x38 );
     
