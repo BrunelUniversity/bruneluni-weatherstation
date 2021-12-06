@@ -4,7 +4,7 @@ using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 namespace BrunelUni.WeatherStation.HAL;
 
 public class PollingTemperatureStateService :
-    BasePollingStateService<ITemperatureEventState, double>,
+    BasePollingStateService<double>,
     IPollingTemperatureStateService
 {
     public PollingTemperatureStateService( ITemperatureEventState temperatureEventState, IDHT20Service dht20Service ) :
