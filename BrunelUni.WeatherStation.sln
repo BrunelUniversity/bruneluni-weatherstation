@@ -10,9 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.HA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.DAL", "BrunelUni.WeatherStation.DAL\BrunelUni.WeatherStation.DAL.csproj", "{DDED5887-117A-4003-A472-F71C83783EC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.HAL.DIModule", "BrunelUni.WeatherStation.HAL.DIModule\BrunelUni.WeatherStation.HAL.DIModule.csproj", "{0E6E3717-C384-4C5E-96E3-B877F8D272EE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.DAL.DIModule", "BrunelUni.WeatherStation.DAL.DIModule\BrunelUni.WeatherStation.DAL.DIModule.csproj", "{BCD028D9-336A-47F9-9DEF-868FF36848CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunelUni.WeatherStation.DIModule", "BrunelUni.WeatherStation.DIModule\BrunelUni.WeatherStation.DIModule.csproj", "{0E6E3717-C384-4C5E-96E3-B877F8D272EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,9 +42,5 @@ Global
 		{0E6E3717-C384-4C5E-96E3-B877F8D272EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E6E3717-C384-4C5E-96E3-B877F8D272EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E6E3717-C384-4C5E-96E3-B877F8D272EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCD028D9-336A-47F9-9DEF-868FF36848CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

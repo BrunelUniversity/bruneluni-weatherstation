@@ -9,7 +9,7 @@ public class LibCI2CPiService : I2CPiService
     private readonly ILibcAdapter _libcAdapter;
     private readonly int _handle;
 
-    public LibCI2CPiService( ILibcAdapter libcAdapter, int address )
+    public LibCI2CPiService( int address, ILibcAdapter libcAdapter )
     {
         _libcAdapter = libcAdapter;
         _handle = _libcAdapter.Open( "/dev/i2c-1", 2 );

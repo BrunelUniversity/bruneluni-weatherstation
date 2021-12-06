@@ -3,17 +3,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Crosscutting.DIModule;
-using BrunelUni.WeatherStation.HAL.DIModule;
+using BrunelUni.WeatherStation.DIModule;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .BindCrosscuttingLayer( )
-    .BindHardwareLayer( );
+    .BindWeatherStationServices( );
 var app = builder.Build();
 
-app.MapGet("/test", ( [ FromServices ] I2CPiServiceFactory i2CPiServiceFactory ) =>
+app.MapGet("/test", ( I2CPiServiceFactory i2CPiServiceFactory ) =>
 {
     var i2CPiService = i2CPiServiceFactory.Factory( 0x38 );
     
