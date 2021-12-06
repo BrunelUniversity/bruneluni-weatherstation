@@ -29,4 +29,10 @@ app.MapGet("/humidity/current",
         time = dateTimeAdapter.Now( )
     } );
 
+app.MapGet( "/test",
+    ( ) => new
+    {
+        test = "hi"
+    } );
+
 app.Run();
