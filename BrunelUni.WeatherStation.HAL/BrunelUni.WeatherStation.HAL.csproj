@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Aidan.Common.Utils" Version="1.0.25" />
+      <PackageReference Include="Aidan.Common.Utils" Version="1.0.26" />
     </ItemGroup>
 
 </Project>
