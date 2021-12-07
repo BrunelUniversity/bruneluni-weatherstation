@@ -1,8 +1,7 @@
-﻿namespace BrunelUni.WeatherStation.Core;
-
-public static class WeatherStationCoreInitializer
+﻿namespace BrunelUni.WeatherStation.Core
 {
-    public static void Initialize()
+    public static class WeatherStationCoreInitializer
     {
+        public static void Initialize( ) { }
     }
 }

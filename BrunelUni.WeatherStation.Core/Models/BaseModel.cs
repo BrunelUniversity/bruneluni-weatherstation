@@ -6,13 +6,13 @@ namespace BrunelUni.WeatherStation.Core.Models;
 public abstract class BaseModel
 {
     [ Key ]
-    public string Id { set; get; }
-    
-    public DateTime Created { set; get; } = DateTime.UtcNow;
-    
-    protected BaseModel( )
+    public Guid Id { set; get; }
+
+    public DateTime Created { get; set; }
+
+    public BaseModel( )
     {
-        Id = Guid.NewGuid( ).ToString( );
+        Id = Guid.NewGuid( );
         Created = DateTime.UtcNow;
     }
 }

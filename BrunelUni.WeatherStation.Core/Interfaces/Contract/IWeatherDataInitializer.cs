@@ -2,8 +2,7 @@
 
 namespace BrunelUni.WeatherStation.Core.Interfaces.Contract
 {
-    public interface I2CPiServiceFactory : IFactory
+    public interface IWeatherDataInitializer : IInitialisable
     {
-        I2CPiService Factory( int address );
     }
 }

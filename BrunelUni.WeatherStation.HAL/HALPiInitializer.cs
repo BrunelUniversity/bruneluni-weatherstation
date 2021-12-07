@@ -1,8 +1,7 @@
-﻿namespace BrunelUni.WeatherStation.HAL;
-
-public static class HALPiInitializer
+﻿namespace BrunelUni.WeatherStation.HAL
 {
-    public static void Initialize()
+    public static class HALPiInitializer
     {
+        public static void Initialize( ) { }
     }
 }
