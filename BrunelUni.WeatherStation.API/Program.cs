@@ -2,6 +2,7 @@ using System;
 using Aidan.Common.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Crosscutting.DIModule;
+using BrunelUni.WeatherStation.DAL;
 using BrunelUni.WeatherStation.DIModule;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,10 @@ builder.Services
 var app = builder.Build();
 
 //TODO: upgrade common to net6 and run all initialize classes
+app.Services.GetService<Context>( ).Database.EnsureCreated( );
+app.Services.GetService<ICreateTemperatureReadingCommand>( ).Run( );
+app.Services.GetService<ICreateTemperatureReadingCommand>( ).Run( );
+var temperatures = app.Services.GetService<IGetTemperatureReadingsCommand>( ).Run( ).Value;
 app.Services.GetService<IPollingTemperatureStateService>( ).Initialize( );
 app.Services.GetService<ITemperatureEventState>( ).ValueChangedEvent += ( ) => Console.WriteLine( "state changed" );
 
