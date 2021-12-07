@@ -1,6 +1,6 @@
 ﻿namespace BrunelUni.WeatherStation.Core.Models;
 
-public class Humidity : BaseModel
+public class Humidity : BaseWeather
 {
     public double RelativeHumidity { get; set; }
 }

@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BrunelUni.WeatherStation.Core.Models;
 
-public abstract class BaseModel
+public abstract class BaseWeather
 {
     [ Key ]
     public Guid Id { set; get; }
 
-    public DateTime Created { get; set; }
+    public DateTime ReadingAt { get; set; }
 
-    public BaseModel( )
+    public BaseWeather( )
     {
         Id = Guid.NewGuid( );
-        Created = DateTime.UtcNow;
+        ReadingAt = DateTime.UtcNow;
     }
 }

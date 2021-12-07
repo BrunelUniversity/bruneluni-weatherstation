@@ -26,19 +26,19 @@ app.MapGet("/humidity",
     ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Humidity
     {
         RelativeHumidity = dht20Service.ReadHumidity(  ).Value,
-        Created = dateTimeAdapter.Now( )
+        ReadingAt = dateTimeAdapter.Now( )
     } );
 app.MapGet( "/temperature/current",
         ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Temperature
         {
             Celsius = dht20Service.ReadTemperature( ).Value,
-            Created = dateTimeAdapter.Now( )
+            ReadingAt = dateTimeAdapter.Now( )
         } );
 app.MapGet("/humidity/current",
     ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Humidity
     {
         RelativeHumidity = dht20Service.ReadHumidity(  ).Value,
-        Created = dateTimeAdapter.Now( )
+        ReadingAt = dateTimeAdapter.Now( )
     } );
 
 app.MapGet( "/test",
