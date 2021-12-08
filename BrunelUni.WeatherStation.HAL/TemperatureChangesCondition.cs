@@ -26,7 +26,7 @@ public class TemperatureChangesCondition : BaseEventCondition, ITemperatureChang
         {
             return true;
         }
-        return Math.Abs( temperatureEventState.Value - latestValue.Celsius ) > 1;
+        return Math.Abs( temperatureEventState.Value - latestValue.Celsius ) > 0.5;
     } )
     {
     }
