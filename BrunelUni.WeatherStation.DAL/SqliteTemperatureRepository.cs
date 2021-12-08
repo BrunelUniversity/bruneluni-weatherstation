@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Aidan.Common.Core;
 using Aidan.Common.Core.Enum;
+using Aidan.Common.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Models;
 
@@ -10,8 +12,13 @@ namespace BrunelUni.WeatherStation.DAL
     public class SqliteTemperatureRepository : ITemperatureRepository
     {
         private readonly WeatherContext _weatherContext;
+        private readonly ILoggerAdapter<ITemperatureRepository> _loggingAdapter;
 
-        public SqliteTemperatureRepository( WeatherContext weatherContext ) { _weatherContext = weatherContext; }
+        public SqliteTemperatureRepository( WeatherContext weatherContext, ILoggerAdapter<ITemperatureRepository> loggingAdapter )
+        {
+            _weatherContext = weatherContext;
+            _loggingAdapter = loggingAdapter;
+        }
 
         public ObjectResult<IEnumerable<Temperature>> GetAll( ) => new( )
         {
@@ -21,12 +28,22 @@ namespace BrunelUni.WeatherStation.DAL
 
         public ObjectResult<Temperature> GetLatest( )
         {
-            return new ObjectResult<Temperature>
+            Temperature value;
+            try
             {
-                Value = _weatherContext
+                value = _weatherContext
                     .TemperatureReadings
                     .OrderByDescending( x => x.ReadingAt )
-                    .FirstOrDefault( ),
+                    .FirstOrDefault( );
+            }
+            catch( ArgumentException )
+            {
+                value = null;
+            }
+
+            return new ObjectResult<Temperature>
+            {
+                Value = value,
                 Status = OperationResultEnum.Success
             };
         }
@@ -35,6 +52,7 @@ namespace BrunelUni.WeatherStation.DAL
         {
             _weatherContext.TemperatureReadings.Add( temperature );
             _weatherContext.SaveChanges( );
+            _loggingAdapter.LogInfo( $"temperature record created" );
             return Result.Success( );
         }
     }

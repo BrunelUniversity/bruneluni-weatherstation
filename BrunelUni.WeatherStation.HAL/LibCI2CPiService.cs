@@ -1,5 +1,7 @@
-﻿using Aidan.Common.Core;
+﻿using System.Linq;
+using Aidan.Common.Core;
 using Aidan.Common.Core.Enum;
+using Aidan.Common.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 
 namespace BrunelUni.WeatherStation.HAL
@@ -7,18 +9,24 @@ namespace BrunelUni.WeatherStation.HAL
     public class LibCI2CPiService : I2CPiService
     {
         private readonly ILibcAdapter _libcAdapter;
+        private readonly ILoggerAdapter<I2CPiService> _loggerAdapter;
         private readonly int _handle;
 
-        public LibCI2CPiService( int address, ILibcAdapter libcAdapter )
+        public LibCI2CPiService( int address, ILibcAdapter libcAdapter, ILoggerAdapter<I2CPiService> loggerAdapter )
         {
             _libcAdapter = libcAdapter;
-            _handle = _libcAdapter.Open( "/dev/i2c-1", 2 );
+            _loggerAdapter = loggerAdapter;
+            var file = "/dev/i2c-1";
+            _handle = _libcAdapter.Open( file, 2 );
+            _loggerAdapter.LogInfo( $"opened i2c bus {file} to read" );
             _libcAdapter.Ioctl( _handle, 1795, address );
+            _loggerAdapter.LogInfo( $"using i2c at 0x{address:X} address" );
         }
 
         public Result WriteBytes( byte [ ] data )
         {
             _libcAdapter.Write( _handle, data, data.Length );
+            _loggerAdapter.LogInfo( $"writing {data.Aggregate( "", ( current, b ) => current + $"0x{b:X} " )}" );
             return Result.Success( );
         }
 
@@ -26,6 +34,7 @@ namespace BrunelUni.WeatherStation.HAL
         {
             var array = new byte[ length ];
             _libcAdapter.Read( _handle, array, length );
+            _loggerAdapter.LogInfo( $"read {array.Aggregate( "", ( current, b ) => current + $"0x{b:X} " )}" );
             return new ObjectResult<byte [ ]>
             {
                 Status = OperationResultEnum.Success,

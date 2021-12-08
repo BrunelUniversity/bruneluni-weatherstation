@@ -11,10 +11,21 @@ public class TemperatureChangesCondition : BaseEventCondition, ITemperatureChang
         ITemperatureRepository temperatureRepository,
         ILoggerAdapter<ITemperatureChangesCondition> loggerAdapter ) : base( ( ) =>
     {
-        var latestValue = temperatureRepository.GetLatest( ).Value.Celsius;
-        loggerAdapter.LogInfo( $"latest value is {latestValue}" );
+        var latestValue = temperatureRepository.GetLatest( ).Value;
+        if( latestValue == null )
+        {
+            loggerAdapter.LogInfo( $"latest value is null" );
+        }
+        else
+        {
+            loggerAdapter.LogInfo( $"latest value is {latestValue}" );
+        }
         loggerAdapter.LogInfo( $"current value is {temperatureEventState.Value}" );
-        return latestValue == null ? true : Math.Abs( temperatureEventState.Value - latestValue ) > 1;
+        if( temperatureRepository.GetLatest( ).Value == null )
+        {
+            return true;
+        }
+        return Math.Abs( temperatureEventState.Value - latestValue.Celsius ) > 1;
     } )
     {
     }

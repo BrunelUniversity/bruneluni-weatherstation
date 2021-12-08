@@ -10,8 +10,14 @@ namespace BrunelUni.WeatherStation.HAL
     {
         public PollingTemperatureStateService( ITemperatureEventState temperatureEventState,
             IDHT20Service dht20Service,
-            ITaskService taskService ) :
-            base( temperatureEventState, dht20Service.GetTemperature, taskService )
+            ITaskService taskService,
+            ILoggerAdapter<IPollingTemperatureStateService> pollingTemperatureStateService ) :
+            base( temperatureEventState, () =>
+        {
+            var temp = dht20Service.GetTemperature( );
+            pollingTemperatureStateService.LogInfo( $"current temperature {temp}" );
+            return dht20Service.GetTemperature( );
+        }, taskService )
         {
         }
     }
