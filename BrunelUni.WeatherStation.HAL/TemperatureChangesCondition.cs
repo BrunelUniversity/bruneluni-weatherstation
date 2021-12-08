@@ -14,14 +14,14 @@ public class TemperatureChangesCondition : BaseEventCondition, ITemperatureChang
         var latestValue = temperatureRepository.GetLatest( ).Value;
         if( latestValue == null )
         {
-            loggerAdapter.LogInfo( $"latest value is null" );
+            loggerAdapter.LogInfo( $"latest temperature value is null" );
         }
         else
         {
-            loggerAdapter.LogInfo( $"latest value is {latestValue.Celsius}" );
-            loggerAdapter.LogInfo( $"difference in changes are {Math.Abs( temperatureEventState.Value - latestValue.Celsius )}" );
+            loggerAdapter.LogInfo( $"latest temperature value is {latestValue.Celsius}" );
+            loggerAdapter.LogInfo( $"difference in changes in temperature are {Math.Abs( temperatureEventState.Value - latestValue.Celsius )}" );
         }
-        loggerAdapter.LogInfo( $"current value is {temperatureEventState.Value}" );
+        loggerAdapter.LogInfo( $"current temperature value is {temperatureEventState.Value}" );
         if( temperatureRepository.GetLatest( ).Value == null )
         {
             return true;
