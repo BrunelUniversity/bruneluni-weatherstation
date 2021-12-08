@@ -1,17 +1,14 @@
 import React from "react";
+import styled, {css} from "styled-components";
+import BaseReading from "./baseReading";
 
-export interface Temperature {
+export interface Temperature{
     readingAt: Date,
     celsius: number
 }
 
-const TemperatureReading = ( humidityReading: Temperature ): JSX.Element => {
-    return <div>
-        <h1>temperature reading is</h1>
-        <p>{humidityReading.celsius.toPrecision(2)}</p>
-        <h1>at time</h1>
-        <p>{humidityReading.readingAt.getUTCDate().toPrecision(2)}</p>
-    </div>
+const TemperatureReading = ( { readingAt, celsius }: Temperature ): JSX.Element => {
+    return <BaseReading readingAt={readingAt} value={celsius} readingText={"temperature"}></BaseReading>
 }
 
 export default TemperatureReading;

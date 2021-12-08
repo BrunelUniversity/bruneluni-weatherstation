@@ -1,24 +1,15 @@
 import React from 'react';
 import './App.css';
+import HumidityReading from "./components/humidityReading";
+import TemperatureReading from "./components/temperatureReading";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <HumidityReading readingAt={new Date()} relativeHumidity={10.5436543322}/>
+            <TemperatureReading readingAt={new Date()} celsius={10.29848342}/>
+        </div>
+    );
 }
 
 export default App;
