@@ -1,6 +1,8 @@
-﻿namespace BrunelUni.WeatherStation.Core.Interfaces.Contract;
+﻿using Aidan.Common.Core.Interfaces.Excluded;
 
-public interface IPollingHumidityStateService
+namespace BrunelUni.WeatherStation.Core.Interfaces.Contract;
+
+public interface IPollingHumidityStateService : IPollingService
 {
     
 }

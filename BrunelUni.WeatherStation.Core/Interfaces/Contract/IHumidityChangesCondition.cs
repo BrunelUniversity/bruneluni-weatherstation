@@ -1,6 +1,7 @@
-﻿namespace BrunelUni.WeatherStation.Core.Interfaces.Contract;
+﻿using Aidan.Common.Core.Interfaces.Excluded;
 
-public interface IHumidityChangesCondition
+namespace BrunelUni.WeatherStation.Core.Interfaces.Contract;
+
+public interface IHumidityChangesCondition : IEventCondition
 {
-    
 }
