@@ -7,12 +7,9 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 /.idea
-/bruneluni-weatherstation-client/.idea
 *DotSettings.user
 
-
 # Env Settings
-
 launchSettings.json
 *appsettings.Production.json
 
