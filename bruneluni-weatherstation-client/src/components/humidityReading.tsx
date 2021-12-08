@@ -8,7 +8,7 @@ export interface Humidity{
 }
 
 const HumidityReading = ( { readingAt, relativeHumidity }: Humidity ): JSX.Element => {
-    return <BaseReading readingAt={readingAt} value={relativeHumidity} readingText={"humidity"}></BaseReading>
+    return <BaseReading reading={{readingAt: readingAt, value: relativeHumidity}} readingText={"humidity"}></BaseReading>
 }
 
 export default HumidityReading;

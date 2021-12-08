@@ -3,8 +3,7 @@ import styled, {css} from "styled-components";
 
 export interface BaseReading {
     readingAt: Date,
-    value: number,
-    readingText: string
+    value: number
 }
 
 const InlineText = css`
@@ -27,10 +26,10 @@ const InlineHeading = styled.h1`
     font-weight: bold;
 `
 
-const BaseReading = ( { readingAt, value, readingText }: BaseReading ): JSX.Element => {
+const BaseReading = ( { reading, readingText }: { reading: BaseReading, readingText: string } ): JSX.Element => {
     return <div>
-        <InlineHeading>{readingText}: </InlineHeading><InlineParagraph>{value.toPrecision(4)}</InlineParagraph>
-        <InlineHeading>at: </InlineHeading><InlineParagraph>{readingAt.toLocaleTimeString()}</InlineParagraph>
+        <InlineHeading>{readingText}: </InlineHeading><InlineParagraph>{reading.value.toPrecision(4)}</InlineParagraph>
+        <InlineHeading>at: </InlineHeading><InlineParagraph>{reading.readingAt.toLocaleTimeString()}</InlineParagraph>
     </div>
 }
 

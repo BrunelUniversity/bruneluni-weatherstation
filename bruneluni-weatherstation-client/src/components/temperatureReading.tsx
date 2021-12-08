@@ -1,5 +1,4 @@
 import React from "react";
-import styled, {css} from "styled-components";
 import BaseReading from "./baseReading";
 
 export interface Temperature{
@@ -8,7 +7,7 @@ export interface Temperature{
 }
 
 const TemperatureReading = ( { readingAt, celsius }: Temperature ): JSX.Element => {
-    return <BaseReading readingAt={readingAt} value={celsius} readingText={"temperature"}></BaseReading>
+    return <BaseReading reading={{readingAt: readingAt, value: celsius}} readingText={"temperature"}></BaseReading>
 }
 
 export default TemperatureReading;
