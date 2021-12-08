@@ -4,6 +4,7 @@ import TemperatureReading from "./components/temperatureReading";
 import HumidityGraph from "./components/humidityGraph";
 import styled from "styled-components";
 import TemperatureGraph from "./components/temperatureGraph";
+import TemperatureProvider from "./state/temperatureState";
 
 const Container = styled.div`
   text-align: center;
@@ -12,6 +13,7 @@ const Container = styled.div`
 
 function App() {
     return (
+        <TemperatureProvider>
         <Container className="App">
             <HumidityReading readingAt={new Date()} relativeHumidity={10.5436543322}/>
             <TemperatureReading readingAt={new Date()} celsius={10.29848342}/>
@@ -28,6 +30,7 @@ function App() {
                     {readingAt: new Date(2021, 8, 13, 2, 2, 2), celsius: 10.2}
                 ]}/>
         </Container>
+        </TemperatureProvider>
     );
 }
 

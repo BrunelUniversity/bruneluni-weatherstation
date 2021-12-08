@@ -45,6 +45,7 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.15",
     "chart.js": "^3.6.2",
+    "dotenv": "^10.0.0",
     "react-chartjs-2": "^4.0.0"
   }
 }
