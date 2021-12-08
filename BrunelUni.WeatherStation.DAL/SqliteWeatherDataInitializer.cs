@@ -10,22 +10,26 @@ namespace BrunelUni.WeatherStation.DAL
         private readonly ITemperatureEventState _temperatureEventState;
         private readonly ITemperatureRepository _temperatureRepository;
         private readonly IDHT20Service _dht20Service;
+        private readonly ITemperatureChangesCondition _temperatureChangesCondition;
 
         public SqliteWeatherDataInitializer( WeatherContext weatherContext,
             ITemperatureEventState temperatureEventState,
             ITemperatureRepository temperatureRepository,
-            IDHT20Service dht20Service )
+            IDHT20Service dht20Service,
+            ITemperatureChangesCondition temperatureChangesCondition )
         {
             _weatherContext = weatherContext;
             _temperatureEventState = temperatureEventState;
             _temperatureRepository = temperatureRepository;
             _dht20Service = dht20Service;
+            _temperatureChangesCondition = temperatureChangesCondition;
         }
 
         public Result Initialize( )
         {
             _weatherContext.Database.EnsureCreated( );
-            _temperatureEventState.ValueChangedEvent += CreateReading;
+            _temperatureEventState.ValueChangedEvent += () => _temperatureChangesCondition.Evaluate( );
+            _temperatureChangesCondition.Valid += CreateReading;
             return Result.Success( );
         }
 
