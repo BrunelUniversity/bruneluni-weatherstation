@@ -14,37 +14,24 @@ builder.Services
 var app = builder.Build();
 
 //TODO: upgrade common to net6 and run all initialize classes;
-var service = app.Services.GetService<ILibcAdapter>( );
 foreach( var initialisable in app.Services.GetServices<IInitialisable>( ) )
 {
     initialisable.Initialize( );
 }
 
-app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository )
-    => temperatureRepository.GetAll( ).Value );
-app.MapGet("/humidity",
-    ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Humidity
-    {
-        RelativeHumidity = dht20Service.ReadHumidity(  ).Value,
-        ReadingAt = dateTimeAdapter.Now( )
-    } );
-app.MapGet( "/temperature/current",
-        ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Temperature
+app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
+    temperatureRepository.GetAll( ).Value );
+app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>
+    humidityRepository.GetAll( ).Value );
+app.MapGet( "/temperature/current", ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Temperature
         {
             Celsius = dht20Service.ReadTemperature( ).Value,
             ReadingAt = dateTimeAdapter.Now( )
         } );
-app.MapGet("/humidity/current",
-    ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Humidity
+app.MapGet("/humidity/current", ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Humidity
     {
         RelativeHumidity = dht20Service.ReadHumidity(  ).Value,
         ReadingAt = dateTimeAdapter.Now( )
-    } );
-
-app.MapGet( "/test",
-    ( ) => new
-    {
-        test = "hi"
     } );
 
 app.Run();
