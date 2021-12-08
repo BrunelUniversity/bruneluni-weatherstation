@@ -9,7 +9,6 @@ namespace BrunelUni.WeatherStation.DAL
         private readonly WeatherContext _weatherContext;
         private readonly ITemperatureEventState _temperatureEventState;
         private readonly ITemperatureRepository _temperatureRepository;
-        private readonly IDHT20Service _dht20Service;
         private readonly ITemperatureChangesCondition _temperatureChangesCondition;
         private readonly IHumidityEventState _humidityEventState;
         private readonly IHumidityRepository _humidityRepository;
@@ -18,13 +17,14 @@ namespace BrunelUni.WeatherStation.DAL
         public SqliteWeatherDataInitializer( WeatherContext weatherContext,
             ITemperatureEventState temperatureEventState,
             ITemperatureRepository temperatureRepository,
-            IDHT20Service dht20Service,
-            ITemperatureChangesCondition temperatureChangesCondition, IHumidityEventState humidityEventState, IHumidityRepository humidityRepository, IHumidityChangesCondition humidityChangesCondition )
+            ITemperatureChangesCondition temperatureChangesCondition,
+            IHumidityEventState humidityEventState,
+            IHumidityRepository humidityRepository,
+            IHumidityChangesCondition humidityChangesCondition )
         {
             _weatherContext = weatherContext;
             _temperatureEventState = temperatureEventState;
             _temperatureRepository = temperatureRepository;
-            _dht20Service = dht20Service;
             _temperatureChangesCondition = temperatureChangesCondition;
             _humidityEventState = humidityEventState;
             _humidityRepository = humidityRepository;
@@ -45,7 +45,7 @@ namespace BrunelUni.WeatherStation.DAL
         {
             _humidityRepository.Create( new Humidity
             {
-                RelativeHumidity = _dht20Service.ReadHumidity( ).Value
+                RelativeHumidity = _humidityEventState.Value
             } );
         }
 
@@ -53,7 +53,7 @@ namespace BrunelUni.WeatherStation.DAL
         {
             _temperatureRepository.Create( new Temperature
             {
-                Celsius = _dht20Service.ReadTemperature( ).Value
+                Celsius = _temperatureEventState.Value
             } );
         }
     }
