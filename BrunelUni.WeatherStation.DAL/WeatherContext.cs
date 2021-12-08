@@ -18,5 +18,6 @@ namespace BrunelUni.WeatherStation.DAL
             optionsBuilder.UseSqlite( $"Data Source={_fileName};" );
 
         public DbSet<Temperature> TemperatureReadings { get; set; }
+        public DbSet<Humidity> HumidityReadings { get; set; }
     }
 }
