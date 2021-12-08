@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Aidan.Common.Core;
 using Aidan.Common.Core.Enum;
+using Aidan.Common.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 
 namespace BrunelUni.WeatherStation.HAL
@@ -10,8 +10,13 @@ namespace BrunelUni.WeatherStation.HAL
     public class DHT20Service : IDHT20Service
     {
         private readonly I2CPiServiceFactory _i2CPiServiceFactory;
+        private readonly ITaskService _taskService;
 
-        public DHT20Service( I2CPiServiceFactory i2CPiServiceFactory ) { _i2CPiServiceFactory = i2CPiServiceFactory; }
+        public DHT20Service( I2CPiServiceFactory i2CPiServiceFactory, ITaskService taskService )
+        {
+            _i2CPiServiceFactory = i2CPiServiceFactory;
+            _taskService = taskService;
+        }
 
         public ObjectResult<double> ReadTemperature( )
         {
@@ -48,14 +53,14 @@ namespace BrunelUni.WeatherStation.HAL
         private T Get<T>( Func<I2CPiService, T> handler )
         {
             var service = _i2CPiServiceFactory.Factory( 0x38 );
-            Task.Delay( 500 );
+            _taskService.Delay( 500 );
             return handler( service );
         }
 
         private byte [ ] GetReading( ) => Get( x =>
         {
             x.WriteBytes( new byte [ ] { 0xac, 0x33, 0x00 } );
-            Task.Delay( 100 );
+            _taskService.Delay( 100 );
             return x.ReadBytes( 6 ).Value;
         } );
     }

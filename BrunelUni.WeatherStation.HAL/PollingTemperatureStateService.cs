@@ -1,4 +1,5 @@
-﻿using Aidan.Common.Utils.EventDriven;
+﻿using Aidan.Common.Core.Interfaces.Contract;
+using Aidan.Common.Utils.EventDriven;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 
 namespace BrunelUni.WeatherStation.HAL
@@ -8,8 +9,9 @@ namespace BrunelUni.WeatherStation.HAL
         IPollingTemperatureStateService
     {
         public PollingTemperatureStateService( ITemperatureEventState temperatureEventState,
-            IDHT20Service dht20Service ) :
-            base( temperatureEventState, dht20Service.GetTemperature )
+            IDHT20Service dht20Service,
+            ITaskService taskService ) :
+            base( temperatureEventState, dht20Service.GetTemperature, taskService )
         {
         }
     }

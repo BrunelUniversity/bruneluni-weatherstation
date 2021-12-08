@@ -10,9 +10,9 @@ public abstract class BaseWeather
 
     public DateTime ReadingAt { get; set; }
 
-    public BaseWeather( )
+    protected BaseWeather( )
     {
         Id = Guid.NewGuid( );
-        ReadingAt = DateTime.UtcNow;
+        ReadingAt = DateTime.Now;
     }
 }
