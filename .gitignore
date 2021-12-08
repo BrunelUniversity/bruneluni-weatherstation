@@ -11,6 +11,7 @@ riderModule.iml
 
 # Env Settings
 launchSettings.json
+*appsettings.Production.json
 
 # DB Stuff
 *.db*
