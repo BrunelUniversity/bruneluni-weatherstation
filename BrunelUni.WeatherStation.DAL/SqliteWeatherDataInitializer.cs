@@ -37,7 +37,7 @@ namespace BrunelUni.WeatherStation.DAL
         {
             _temperatureRepository.Create( new Temperature
             {
-                Celsius = _dht20Service.ReadHumidity( ).Value
+                Celsius = _dht20Service.ReadTemperature( ).Value
             } );
         }
     }
