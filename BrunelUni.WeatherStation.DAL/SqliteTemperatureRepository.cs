@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Aidan.Common.Core;
 using Aidan.Common.Core.Enum;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
@@ -17,6 +18,18 @@ namespace BrunelUni.WeatherStation.DAL
             Status = OperationResultEnum.Success,
             Value = _weatherContext.TemperatureReadings
         };
+
+        public ObjectResult<Temperature> GetLatest( )
+        {
+            return new ObjectResult<Temperature>
+            {
+                Value = _weatherContext
+                    .TemperatureReadings
+                    .OrderByDescending( x => x.ReadingAt )
+                    .FirstOrDefault( ),
+                Status = OperationResultEnum.Success
+            };
+        }
 
         public Result Create( Temperature temperature )
         {
