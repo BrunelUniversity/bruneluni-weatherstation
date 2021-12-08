@@ -18,7 +18,8 @@ public class TemperatureChangesCondition : BaseEventCondition, ITemperatureChang
         }
         else
         {
-            loggerAdapter.LogInfo( $"latest value is {latestValue}" );
+            loggerAdapter.LogInfo( $"latest value is {latestValue.Celsius}" );
+            loggerAdapter.LogInfo( $"difference in changes are {Math.Abs( temperatureEventState.Value - latestValue.Celsius )}" );
         }
         loggerAdapter.LogInfo( $"current value is {temperatureEventState.Value}" );
         if( temperatureRepository.GetLatest( ).Value == null )
