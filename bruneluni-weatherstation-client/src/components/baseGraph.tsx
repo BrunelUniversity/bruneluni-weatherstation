@@ -28,27 +28,30 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
             {
                 label: props.title + " Graph",
                 fill: true,
-                showLine: true,  //!\\ Add this line
+                showLine: true,
+                borderJoinStyle: "round",
                 backgroundColor: '#aaafff',
                 pointBorderColor: '#777777',
                 borderColor: '#777777',
                 borderWidth: 1,
                 hoverBackgroundColor: '#ffffff',
                 pointBackgroundColor: '#faf7f7',
-                pointBorderWidth: 0.5,
-                pointHoverRadius: 2,
                 pointHoverBackgroundColor: '#faf7f7',
                 pointHoverBorderColor: '#faf7f7',
                 pointHoverBorderWidth: 1,
-                pointRadius: 0.5,
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointRadius: 3,
                 pointHitRadius: 10,
-                data: readingData
+                data: readingData,
+                tension: 0.2
             }
         ],
     };
 
     return <Container>
         <Scatter data={data} options={{
+            maintainAspectRatio: true,
             scales:{
                 xAxes:{
                     ticks: {
