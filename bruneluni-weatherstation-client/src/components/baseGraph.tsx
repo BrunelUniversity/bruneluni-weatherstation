@@ -19,7 +19,6 @@ const Container = styled.div`
   padding: 25px;
   border-radius: 5px;
   background-color: white;
-  margin-bottom: 0px;
 `;
 const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Element => {
     const readingData = props.readings.map(reading => {
@@ -41,7 +40,7 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
                 backgroundColor: '#aaafff',
                 pointBorderColor: '#777777',
                 borderColor: '#777777',
-                borderWidth: 0.5,
+                borderWidth: 0.75,
                 hoverBackgroundColor: '#ffffff',
                 pointBackgroundColor: '#faf7f7',
                 pointHoverBackgroundColor: '#faf7f7',

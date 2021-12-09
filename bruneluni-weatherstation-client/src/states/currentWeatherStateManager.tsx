@@ -20,7 +20,7 @@ const CurrentWeatherStateManager = ( ) =>{
                     const [temp, hum] = x;
                     setWeather([hum, temp, true]);
                 })
-            }, 2000)
+            }, 1000)
             return () => clearInterval(id)
         }
     })
