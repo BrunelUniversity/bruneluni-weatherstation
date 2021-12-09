@@ -3,6 +3,7 @@ import {Line, Pie, Scatter} from 'react-chartjs-2';
 import {PointElement, CategoryScale, LinearScale, LineElement, Chart, ChartData} from 'chart.js'
 import styled from "styled-components";
 import {BaseReading} from "./baseReading";
+import moment from "moment";
 Chart.register(PointElement)
 Chart.register(LineElement)
 Chart.register(CategoryScale)
@@ -11,11 +12,12 @@ Chart.register(LinearScale)
 const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
-  max-width: 600px;
+  max-width: 650px;
   margin-top: 50px;
   margin-bottom: 50px;
-  box-shadow: 0 0px 20px rgb(0 0 0 / 0.15);
+  box-shadow: 0 0px 10px rgb(0 0 0 / 0.15);
   padding: 50px;
+  border-radius: 5px;
 `;
 
 const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Element => {
@@ -38,7 +40,7 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
                 backgroundColor: '#aaafff',
                 pointBorderColor: '#777777',
                 borderColor: '#777777',
-                borderWidth: 1,
+                borderWidth: 0.5,
                 hoverBackgroundColor: '#ffffff',
                 pointBackgroundColor: '#faf7f7',
                 pointHoverBackgroundColor: '#faf7f7',
@@ -48,7 +50,7 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
                 pointHoverRadius: 5,
                 pointRadius: 0,
                 pointHitRadius: 10,
-                data: readingData,
+                data: readingData
             }
         ],
     };
@@ -57,9 +59,20 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
         <Scatter data={data} options={{
             maintainAspectRatio: true,
             scales:{
+                yAxes:{
+                    grid:{
+                        color: "#ffffffff"
+                    }
+                },
                 xAxes:{
+                    grid: {
+                        color: "#ffffffff"
+                    },
                     ticks: {
-                        callback: (label, index, labels) => new Date(label).toLocaleString()
+                        callback: (label, index, labels) => {
+                            const date = new Date(label);
+                            return date.toLocaleString()
+                        }
                     }
                 }
             },

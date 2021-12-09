@@ -22,7 +22,9 @@ const WeatherReadings = ( ): JSX.Element => {
         />
     }
     return <div>
+        <h1>Humidity Graph</h1>
         <HumidityGraph readings={humidityReadings}/>
+        <h1>Temperature Graph</h1>
         <TemperatureGraph readings={temperatureReadings}/>
     </div>
 }
