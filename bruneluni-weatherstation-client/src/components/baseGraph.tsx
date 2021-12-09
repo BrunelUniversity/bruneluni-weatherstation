@@ -12,10 +12,10 @@ Chart.register(LinearScale)
 const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
-  max-width: 550px;
+  max-width: 500px;
   margin-top: 50px;
   margin-bottom: 50px;
-  box-shadow: 0 0px 10px rgb(0 0 0 / 0.20);
+  box-shadow: 0 0px 7.5px rgb(0 0 0 / 0.10);
   padding: 25px;
   border-radius: 5px;
   background-color: white;
@@ -38,17 +38,17 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
                 showLine: true,
                 borderJoinStyle: "round",
                 backgroundColor: '#aaafff',
-                pointBorderColor: '#777777',
-                borderColor: '#777777',
-                borderWidth: 0.75,
+                pointBorderColor: '#999999',
+                borderColor: '#999999',
+                borderWidth: 0.5,
                 hoverBackgroundColor: '#ffffff',
                 pointBackgroundColor: '#faf7f7',
                 pointHoverBackgroundColor: '#faf7f7',
                 pointHoverBorderColor: '#faf7f7',
                 pointHoverBorderWidth: 1,
-                pointBorderWidth: 1,
+                pointBorderWidth: 0.5,
                 pointHoverRadius: 5,
-                pointRadius: 0,
+                pointRadius: 2,
                 pointHitRadius: 10,
                 data: readingData
             }

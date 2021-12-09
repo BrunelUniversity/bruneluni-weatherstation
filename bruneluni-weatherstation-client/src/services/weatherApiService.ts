@@ -2,7 +2,8 @@ import {Temperature} from "../components/temperatureReading";
 import {defaultHumidity, defaultTemperature} from "../states/currentWeatherState";
 import {Humidity} from "../components/humidityReading";
 
-const baseUrl = "https://92.233.227.46/weather-station/api/";
+//console.log(env);
+const baseUrl = process.env.REACT_APP_API_URL_BE;
 
 export const getCurrentAndUpdateState = ( callback:{(data: [Temperature, Humidity]): void }) => {
     let humidity: Humidity = defaultHumidity;
@@ -29,6 +30,7 @@ export const getReadingsAndUpdateState = ( callback:{(data: [Temperature[], Humi
 }
 
 const getFromApi = (url: string, callback:{(data: any):void}) => {
+    console.log(process.env);
     console.log(baseUrl+url)
     fetch(baseUrl+url)
         .then(response => response.json())
