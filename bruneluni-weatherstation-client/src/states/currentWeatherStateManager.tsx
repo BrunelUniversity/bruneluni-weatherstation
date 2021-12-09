@@ -14,6 +14,15 @@ const CurrentWeatherStateManager = ( ) =>{
                 })
             }, 500)
         }
+        if(initial){
+            const id = setInterval(() => {
+                getCurrentAndUpdateState(x => {
+                    const [temp, hum] = x;
+                    setWeather([hum, temp, true]);
+                })
+            }, 2000)
+            return () => clearInterval(id)
+        }
     })
 
     return <React.Fragment/>
