@@ -12,12 +12,14 @@ Chart.register(LinearScale)
 const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
-  max-width: 650px;
+  max-width: 550px;
   margin-top: 50px;
   margin-bottom: 50px;
-  box-shadow: 0 0px 10px rgb(0 0 0 / 0.15);
-  padding: 50px;
+  box-shadow: 0 0px 10px rgb(0 0 0 / 0.20);
+  padding: 25px;
   border-radius: 5px;
+  background-color: white;
+  margin-bottom: 0px;
 `;
 
 const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Element => {

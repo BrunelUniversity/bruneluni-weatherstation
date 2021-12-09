@@ -11,6 +11,8 @@ import WeatherReadings from "./components/weatherReadings";
 
 const Container = styled.div`
   text-align: center;
+  background-color: aliceblue;
+  color: darkslategrey;
 `;
 
 function App() {
