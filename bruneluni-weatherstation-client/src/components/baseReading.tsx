@@ -11,21 +11,20 @@ export interface BaseReading {
 const InlineText = css`
     margin:0px;
     display: inline-block;
-    padding:1em;
+    padding-right:1em;
     vertical-align: top;
-    font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     line-height: 28px;
 `
 const InlineParagraph = styled.p`
     ${InlineText};
-    text-align:right;
-    padding-right:2em;
+    text-align: right;
+    font-weight: lighter;
 `
 
 const InlineHeading = styled.h1`
     ${InlineText};
-    font-weight: bold;
+    font-weight: lighter;
 `
 
 const BaseReading = ( { reading, readingText }: { reading: BaseReading, readingText: string } ): JSX.Element => {

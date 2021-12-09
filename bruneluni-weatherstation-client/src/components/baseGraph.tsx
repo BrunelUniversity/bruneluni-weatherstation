@@ -10,10 +10,9 @@ Chart.register(CategoryScale)
 Chart.register(LinearScale)
 
 const Container = styled.div`
-  margin-left: auto;
-  margin-right: auto;
+
   max-width: 500px;
-  margin-top: 50px;
+  margin-top: 5px;
   margin-bottom: 50px;
   box-shadow: 0 0px 7.5px rgb(0 0 0 / 0.10);
   padding: 25px;

@@ -6,6 +6,12 @@ import Loader from "react-loader-spinner";
 import HumidityGraph from "./humidityGraph";
 import TemperatureGraph from "./temperatureGraph";
 import {useWeatherReadingsContext} from "../states/weatherReadingsState";
+import styled, {css} from "styled-components";
+
+const InlineHeading = styled.h1`
+    font-weight: lighter;
+    font-size: x-large;
+`
 
 const WeatherReadings = ( ): JSX.Element => {
     const humidityReadings = useWeatherReadingsContext().humidityReadings;
@@ -22,9 +28,9 @@ const WeatherReadings = ( ): JSX.Element => {
         />
     }
     return <div>
-        <h1>Humidity Graph</h1>
+        <InlineHeading>Humidity Graph</InlineHeading>
         <HumidityGraph readings={humidityReadings}/>
-        <h1>Temperature Graph</h1>
+        <InlineHeading>Temperature Graph</InlineHeading>
         <TemperatureGraph readings={temperatureReadings}/>
     </div>
 }
