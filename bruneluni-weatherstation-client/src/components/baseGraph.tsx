@@ -21,7 +21,6 @@ const Container = styled.div`
   background-color: white;
   margin-bottom: 0px;
 `;
-
 const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Element => {
     const readingData = props.readings.map(reading => {
         return {x: new Date(reading.readingAt).getTime(), y: reading.value}
