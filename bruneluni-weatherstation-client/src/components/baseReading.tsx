@@ -1,5 +1,7 @@
 import React from "react";
 import styled, {css} from "styled-components";
+import {useCurrentWeatherContext} from "../states/currentWeatherState";
+import Loader from "react-loader-spinner";
 
 export interface BaseReading {
     readingAt: Date,
@@ -27,9 +29,11 @@ const InlineHeading = styled.h1`
 `
 
 const BaseReading = ( { reading, readingText }: { reading: BaseReading, readingText: string } ): JSX.Element => {
+    console.log(new Date(reading.readingAt))
+    console.log(reading.value)
     return <div>
         <InlineHeading>{readingText}: </InlineHeading><InlineParagraph>{reading.value.toPrecision(4)}</InlineParagraph>
-        <InlineHeading>at: </InlineHeading><InlineParagraph>{reading.readingAt.toLocaleTimeString()}</InlineParagraph>
+        <InlineHeading>at: </InlineHeading><InlineParagraph>{new Date(reading.readingAt).toLocaleTimeString()}</InlineParagraph>
     </div>
 }
 
