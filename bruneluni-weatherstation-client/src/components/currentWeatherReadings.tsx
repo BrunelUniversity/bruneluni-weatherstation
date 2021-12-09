@@ -1,8 +1,8 @@
 import React from "react";
 import HumidityReading from "./humidityReading";
 import TemperatureReading from "./temperatureReading";
-import {useCurrentHumidityContext} from "../state/currentHumidityState";
-import {useCurrentTemperatureContext} from "../state/currentTemperatureState";
+import {useCurrentHumidityContext} from "../states/currentHumidityState";
+import {useCurrentTemperatureContext} from "../states/currentTemperatureState";
 
 const CurrentWeatherReadings = ( ): JSX.Element => {
     const humidity = useCurrentHumidityContext().currentHumidity;

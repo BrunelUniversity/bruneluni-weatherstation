@@ -4,8 +4,8 @@ import TemperatureReading from "./components/temperatureReading";
 import HumidityGraph from "./components/humidityGraph";
 import styled from "styled-components";
 import TemperatureGraph from "./components/temperatureGraph";
-import CurrentTemperatureProvider from "./state/currentTemperatureState";
-import CurrentHumidityProvider from "./state/currentHumidityState";
+import CurrentTemperatureProvider from "./states/currentTemperatureState";
+import CurrentHumidityProvider from "./states/currentHumidityState";
 import CurrentWeatherReadings from "./components/currentWeatherReadings";
 
 const Container = styled.div`
