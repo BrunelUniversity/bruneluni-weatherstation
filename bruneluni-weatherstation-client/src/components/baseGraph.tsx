@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Line, Pie, Scatter} from 'react-chartjs-2';
 import {PointElement, CategoryScale, LinearScale, LineElement, Chart, ChartData} from 'chart.js'
 import styled from "styled-components";
@@ -14,13 +14,18 @@ const Container = styled.div`
   max-width: 600px;
   margin-top: 50px;
   margin-bottom: 50px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.15);
+  box-shadow: 0 0px 20px rgb(0 0 0 / 0.15);
+  padding: 50px;
 `;
 
 const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Element => {
     const readingData = props.readings.map(reading => {
-        return {x: reading.readingAt.getTime(), y: reading.value}
+        return {x: new Date(reading.readingAt).getTime(), y: reading.value}
     });
+
+    useEffect(()=>{
+        console.log("graph rendered")
+    })
 
     const data: ChartData<"scatter", {x: number, y: number}[], string> = {
         labels: ['Scatter'],
@@ -41,10 +46,9 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
                 pointHoverBorderWidth: 1,
                 pointBorderWidth: 1,
                 pointHoverRadius: 5,
-                pointRadius: 3,
+                pointRadius: 0,
                 pointHitRadius: 10,
                 data: readingData,
-                tension: 0.2
             }
         ],
     };

@@ -11,10 +11,11 @@ const CurrentWeatherReadings = ( ): JSX.Element => {
     if(!initial){
         return <Loader
             type="TailSpin"
-            color='#707070'
+            color='#B8B8B8'
             height={75}
             width={75}
-            timeout={3000}
+            radius={1}
+            timeout={15000}
         />
     }
     return <div>
