@@ -15,6 +15,18 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
+      - name: setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: publish client
+        run: |
+          export REACT_APP_API_URL_BE=https://92.233.227.46/api/
+          cd bruneluni-weatherstation-client
+          yarn install
+          yarn build
+        env:
+          CI: false
       - name: publish api
         run: dotnet publish BrunelUni.WeatherStation.API -o ./bruneluni-weatherstation-server -c Release -r linux-arm
       - name: copy server via ssh
@@ -33,7 +45,7 @@ jobs:
           username: ${{ secrets.UNAME }}
           password: ${{ secrets.PSWD }}
           port: 2244
-          source: "bruneluni-weatherstation-client/*"
+          source: "bruneluni-weatherstation-client/build"
           target: "./"
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
