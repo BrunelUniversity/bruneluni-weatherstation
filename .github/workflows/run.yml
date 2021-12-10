@@ -58,6 +58,3 @@ jobs:
             export REACT_APP_API_URL_BE=https://92.233.227.46/api/
             sudo systemctl restart nginx
             sudo systemctl restart weatherstation
-            cd bruneluni-weatherstation-client
-            yarn install
-            yarn start
