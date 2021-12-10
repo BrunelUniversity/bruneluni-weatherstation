@@ -21,7 +21,7 @@ jobs:
           node-version: '14'
       - name: publish client
         run: |
-          export REACT_APP_API_URL_BE=https://92.233.227.46/api
+          export REACT_APP_API_URL_BE=https://92.233.227.46/api/
           cd bruneluni-weatherstation-client
           yarn install
           yarn build
