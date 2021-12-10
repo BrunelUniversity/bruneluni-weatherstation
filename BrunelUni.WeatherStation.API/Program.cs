@@ -23,14 +23,14 @@ app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
     temperatureRepository.GetAll( ).Value );
 app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>
     humidityRepository.GetAll( ).Value );
-app.MapGet( "/temperature/current", ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Temperature
+app.MapGet( "/temperature/current", ( ITemperatureEventState temperatureEventState, IDateTimeAdapter dateTimeAdapter ) => new Temperature
         {
-            Celsius = dht20Service.ReadTemperature( ).Value,
+            Celsius = temperatureEventState.Value,
             ReadingAt = dateTimeAdapter.Now( )
         } );
-app.MapGet("/humidity/current", ( IDHT20Service dht20Service, IDateTimeAdapter dateTimeAdapter ) => new Humidity
+app.MapGet("/humidity/current", ( IHumidityEventState humidityEventState, IDateTimeAdapter dateTimeAdapter ) => new Humidity
     {
-        RelativeHumidity = dht20Service.ReadHumidity(  ).Value,
+        RelativeHumidity = humidityEventState.Value,
         ReadingAt = dateTimeAdapter.Now( )
     } );
 
