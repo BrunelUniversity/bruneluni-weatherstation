@@ -32,6 +32,7 @@ jobs:
           target: "./"
       - name: publish client
         run: |
+          export REACT_APP_API_URL_BE=https://192.168.0.10/weather-station/api/
           cd bruneluni-weatherstation-client
           yarn install
           yarn build
@@ -54,6 +55,5 @@ jobs:
           password: ${{ secrets.PSWD }}
           port: 2244
           script: |
-            export REACT_APP_API_URL_BE=https://192.168.0.10/weather-station/api/
             sudo systemctl restart nginx
             sudo systemctl restart weatherstation
