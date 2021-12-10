@@ -32,7 +32,7 @@ jobs:
           target: "./"
       - name: publish client
         run: |
-          export REACT_APP_API_URL_BE=https://192.168.0.10/weather-station/api/
+          export REACT_APP_API_URL_BE=https://192.168.0.10/api/
           cd bruneluni-weatherstation-client
           yarn install
           yarn build
