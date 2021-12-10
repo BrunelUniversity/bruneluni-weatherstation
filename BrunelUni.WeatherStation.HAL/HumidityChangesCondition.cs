@@ -26,7 +26,7 @@ public class HumidityChangesCondition : BaseEventCondition, IHumidityChangesCond
         {
             return true;
         }
-        return Math.Abs( humidityEventState.Value - latestValue.RelativeHumidity ) > 0.70;
+        return Math.Abs( humidityEventState.Value - latestValue.RelativeHumidity ) > 1.25;
     } )
     {
     }
