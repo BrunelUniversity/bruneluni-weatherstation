@@ -35,6 +35,8 @@ jobs:
           cd bruneluni-weatherstation-client
           yarn install
           yarn build
+        env:
+          CI: false
       - name: copy client via ssh
         uses: appleboy/scp-action@master
         with:
