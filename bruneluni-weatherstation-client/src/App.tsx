@@ -12,7 +12,7 @@ import NavBar from "./components/navBar";
 
 const Container = styled.div`
   margin-left: 10%;
-  margin-top: 25px;
+  margin-top: 125px;
   background-color: aliceblue;
   color: #777777;
 `;
