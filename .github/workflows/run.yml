@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.PSWD }}
           port: 2244
           source: "bruneluni-weatherstation-client/build/*"
-          target: "bruneluni-weatherstation-client"
+          target: "./"
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
