@@ -43,7 +43,7 @@ jobs:
           password: ${{ secrets.PSWD }}
           port: 2244
           source: "bruneluni-weatherstation-infrastructure/nginx.conf"
-          target: "/etc/nginx/nginx.conf"
+          target: "../../etc/nginx/nginx.conf"
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
