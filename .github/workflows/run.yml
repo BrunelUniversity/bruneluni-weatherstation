@@ -15,6 +15,10 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
+      - name: setup node
+        uses: actions/setup-node@v1.4.1
+        with:
+          node-version: 14.x
       - name: publish api
         run: dotnet publish BrunelUni.WeatherStation.API -o ./bruneluni-weatherstation-server -c Release -r linux-arm
       - name: copy server via ssh
@@ -26,6 +30,10 @@ jobs:
           port: 2244
           source: "bruneluni-weatherstation-server/*"
           target: "./"
+      - name: publish client
+        run: |
+          cd bruneluni-weatherstation-client
+          yarn build
       - name: copy client via ssh
         uses: appleboy/scp-action@master
         with:
@@ -33,8 +41,8 @@ jobs:
           username: ${{ secrets.UNAME }}
           password: ${{ secrets.PSWD }}
           port: 2244
-          source: "bruneluni-weatherstation-client/*"
-          target: "./"
+          source: "bruneluni-weatherstation-client/build/*"
+          target: "bruneluni-weatherstation-client"
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
@@ -43,6 +51,6 @@ jobs:
           password: ${{ secrets.PSWD }}
           port: 2244
           script: |
-            export REACT_APP_API_URL_BE=https://92.233.227.46/weather-station/api/
+            export REACT_APP_API_URL_BE=https://192.168.0.10/weather-station/api/
             sudo systemctl restart nginx
             sudo systemctl restart weatherstation
