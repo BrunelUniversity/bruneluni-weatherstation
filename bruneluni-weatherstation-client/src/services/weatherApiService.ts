@@ -30,8 +30,6 @@ export const getReadingsAndUpdateState = ( callback:{(data: [Temperature[], Humi
 }
 
 const getFromApi = (url: string, callback:{(data: any):void}) => {
-    console.log(process.env);
-    console.log(baseUrl+url)
     fetch(baseUrl+url)
         .then(response => response.json())
         .then(data => callback(data))
