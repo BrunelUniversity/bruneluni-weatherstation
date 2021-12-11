@@ -46,7 +46,6 @@ const BaseGraph = ( props: { readings: BaseReading[], title: string } ): JSX.Ele
                 pointHoverBorderColor: '#faf7f7',
                 pointHoverBorderWidth: 1,
                 pointHoverRadius: 5,
-                pointRadius: 2,
                 pointHitRadius: 10,
                 data: readingData
             }
