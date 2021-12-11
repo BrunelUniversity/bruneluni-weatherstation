@@ -9,6 +9,7 @@ import WeatherReadingsProvider from './states/weatherReadingsState';
 import WeatherReadingsStateManager from "./states/weatherReadingsStateManager";
 import WeatherReadings from "./components/weatherReadings";
 import NavBar from "./components/navBar";
+import LoadingScreen from "./components/loadingScreen";
 
 const Container = styled.div`
   margin-left: 10%;
@@ -22,6 +23,7 @@ function App() {
         <div>
             <WeatherReadingsProvider>
                 <CurrentWeatherProvider>
+                    <LoadingScreen/>
                     <CurrentWeatherStateManager/>
                     <WeatherReadingsStateManager/>
                     <NavBar/>

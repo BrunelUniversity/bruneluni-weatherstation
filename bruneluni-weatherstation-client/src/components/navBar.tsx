@@ -14,8 +14,9 @@ const Container = styled.div`
   padding: 10px;
   box-shadow: 0 0px 7.5px rgb(0 0 0 / 0.35);
   top: 0;
-  width 100%;
+  width: 100%;
   position: fixed;
+  z-index: 5;
 `;
 
 const NavBar = ( ): JSX.Element => {
