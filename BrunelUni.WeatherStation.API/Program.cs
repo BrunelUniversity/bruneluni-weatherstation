@@ -32,8 +32,6 @@ app.UseCors( x => x
     secureShellService.Deactivate( ).Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell disabled" } )
         : Results.BadRequest( new { message = "secure shell not disabled" } ) );*/
-app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
-    temperatureRepository.GetAll( ).Value );
 app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>
     humidityRepository.GetAll( ).Value );
 app.MapGet( "/temperature/current",
