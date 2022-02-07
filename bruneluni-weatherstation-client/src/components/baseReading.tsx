@@ -20,6 +20,8 @@ const InlineParagraph = styled.p`
     ${InlineText};
     text-align: right;
     font-weight: lighter;
+    animation-name: pulse;
+    animation-duration: 1s;
 `
 
 const InlineHeading = styled.h1`
@@ -27,14 +29,14 @@ const InlineHeading = styled.h1`
     font-weight: lighter;
 `
 
-const BaseReading = ( { reading, readingText }: { reading: BaseReading, readingText: string } ): JSX.Element => {
+const BaseReading = ( { reading, readingText, key }: { reading: BaseReading, readingText: string, key: string } ): JSX.Element => {
     useEffect(()=>{
         console.log("reading rendered")
     })
 
     return <div>
-        <InlineHeading>{readingText}: </InlineHeading><InlineParagraph>{reading.value.toPrecision(4)}</InlineParagraph>
-        <InlineHeading>at: </InlineHeading><InlineParagraph>{new Date(reading.readingAt).toLocaleTimeString()}</InlineParagraph>
+        <InlineHeading>{readingText}: </InlineHeading><InlineParagraph className="pulsing" key={new Date().getSeconds()}>{reading.value.toPrecision(4)}</InlineParagraph>
+        <InlineHeading>at: </InlineHeading><InlineParagraph className="pulsing" key={new Date().getSeconds()+1}>{new Date(reading.readingAt).toLocaleTimeString()}</InlineParagraph>
     </div>
 }
 

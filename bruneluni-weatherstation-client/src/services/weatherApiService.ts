@@ -4,6 +4,7 @@ import {Humidity} from "../components/humidityReading";
 
 //console.log(env);
 const baseUrl = process.env.REACT_APP_API_URL_BE;
+const devMode = process.env.DEV_MODE;
 
 export const getCurrentAndUpdateState = ( callback:{(data: [Temperature, Humidity]): void }) => {
     let humidity: Humidity = defaultHumidity;
@@ -30,6 +31,11 @@ export const getReadingsAndUpdateState = ( callback:{(data: [Temperature[], Humi
 }
 
 const getFromApi = (url: string, callback:{(data: any):void}) => {
+    console.log(baseUrl+url)
+    console.log(devMode)
+    if(devMode){
+
+    }
     fetch(baseUrl+url)
         .then(response => response.json())
         .then(data => callback(data))

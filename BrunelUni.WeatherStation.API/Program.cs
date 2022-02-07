@@ -10,7 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder( args );
 builder.Services
     .BindCrosscuttingLayer( )
-    .BindWeatherStationServices( );
+    .BindWeatherStationServices( )
+    .AddCors( );
+
 var app = builder.Build();
 
 //TODO: upgrade common to net6 and run all initialize classes;
@@ -18,6 +20,11 @@ foreach( var initialisable in app.Services.GetServices<IInitialisable>( ) )
 {
     initialisable.Initialize( );
 }
+
+app.UseCors( x => x
+    .AllowAnyHeader( )
+    .AllowAnyMethod( )
+    .WithOrigins( "http://localhost:3000" ) );
 
 app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
     temperatureRepository.GetAll( ).Value );

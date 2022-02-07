@@ -7,7 +7,7 @@ export interface Temperature{
 }
 
 const TemperatureReading = ( { readingAt, celsius }: Temperature ): JSX.Element => {
-    return <BaseReading reading={{readingAt: readingAt, value: celsius}} readingText={"temperature"}></BaseReading>
+    return <BaseReading reading={{readingAt: readingAt, value: celsius}} readingText={"temperature"} key={""}></BaseReading>
 }
 
 export default TemperatureReading;
