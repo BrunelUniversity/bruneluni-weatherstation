@@ -28,11 +28,11 @@ app.UseCors( x => x
     .AllowAnyMethod( )
     .AllowAnyOrigin( ) );
 
-app.MapPost( "/ssh-server", ( ISecureShellService secureShellService ) =>
+app.MapPost( "/ssh", ( ISecureShellService secureShellService ) =>
     secureShellService.Activate( ).Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell enabled" } )
         : Results.BadRequest( new { message = "secure shell not enabled" } ) );
-app.MapDelete( "/ssh-server", ( ISecureShellService secureShellService ) =>
+app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
     secureShellService.Deactivate( ).Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell disabled" } )
         : Results.BadRequest( new { message = "secure shell not disabled" } ) );
