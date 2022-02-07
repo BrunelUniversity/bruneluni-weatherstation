@@ -1,12 +1,12 @@
 using Aidan.Common.Core.Enum;
 using Aidan.Common.Core.Interfaces.Contract;
 using Aidan.Common.Core.Interfaces.Excluded;
-using Aidan.Common.Utils.Web;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Models;
 using BrunelUni.WeatherStation.Crosscutting.DIModule;
 using BrunelUni.WeatherStation.DIModule;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder( args );
@@ -28,14 +28,14 @@ app.UseCors( x => x
     .AllowAnyMethod( )
     .AllowAnyOrigin( ) );
 
-app.MapPost( "/ssh-server", ( ISecureShellService secureShellService, MvcAdapter mvcAdapter ) =>
+app.MapPost( "/ssh-server", ( ISecureShellService secureShellService ) =>
     secureShellService.Activate( ).Status == OperationResultEnum.Success
-        ? mvcAdapter.Success( "secure shell enabled" )
-        : mvcAdapter.BadRequestError( "secure shell was not enabled" ) );
-app.MapDelete( "/ssh-server", ( ISecureShellService secureShellService, MvcAdapter mvcAdapter ) =>
+        ? Results.Ok( new { message = "secure shell enabled" } )
+        : Results.BadRequest( new { message = "secure shell not enabled" } ) );
+app.MapDelete( "/ssh-server", ( ISecureShellService secureShellService ) =>
     secureShellService.Deactivate( ).Status == OperationResultEnum.Success
-        ? mvcAdapter.Success( "secure shell disabled" )
-        : mvcAdapter.BadRequestError( "secure shell was not disabled" ) );
+        ? Results.Ok( new { message = "secure shell disabled" } )
+        : Results.BadRequest( new { message = "secure shell not disabled" } ) );
 app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
     temperatureRepository.GetAll( ).Value );
 app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>

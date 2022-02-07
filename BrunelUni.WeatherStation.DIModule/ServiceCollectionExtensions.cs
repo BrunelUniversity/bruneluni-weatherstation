@@ -1,6 +1,7 @@
 ﻿using System;
 using Aidan.Common.Core.Interfaces.Contract;
 using Aidan.Common.DependencyInjection;
+using Aidan.Common.Utils.Web;
 using BrunelUni.WeatherStation.Core;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.DAL;
@@ -27,7 +28,20 @@ namespace BrunelUni.WeatherStation.DIModule
                     {
                         return x.GetService<ISimulatedLibcAdapter>( );
                     }
+
                     return x.GetService<ILinuxLibcAdapter>( );
-                } );
+                } )
+                .AddTransient<ISecureShellService>( x =>
+                {
+                    if( x.GetService<IConfigurationAdapter>( )
+                       .Get<AppOptions>( )
+                       .Simulated )
+                    {
+                        return x.GetService<ISimulatedSecureShellService>( );
+                    }
+
+                    return x.GetService<ILinuxSecureShellService>( );
+                } )
+                .AddTransient<MvcAdapter>( );
     }
 }
