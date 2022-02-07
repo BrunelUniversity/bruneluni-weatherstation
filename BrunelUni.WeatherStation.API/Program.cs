@@ -24,7 +24,7 @@ foreach( var initialisable in app.Services.GetServices<IInitialisable>( ) )
 app.UseCors( x => x
     .AllowAnyHeader( )
     .AllowAnyMethod( )
-    .WithOrigins( "http://localhost:3000" ) );
+    .AllowAnyOrigin( ) );
 
 app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
     temperatureRepository.GetAll( ).Value );
