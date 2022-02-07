@@ -28,10 +28,16 @@ app.UseCors( x => x
     .AllowAnyMethod( )
     .AllowAnyOrigin( ) );
 
-/*app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
+app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
     secureShellService.Deactivate( ).Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell disabled" } )
-        : Results.BadRequest( new { message = "secure shell not disabled" } ) );*/
+        : Results.BadRequest( new { message = "secure shell not disabled" } ) );
+app.MapPost( "/ssh", ( ISecureShellService secureShellService ) =>
+    secureShellService.Activate( ).Status == OperationResultEnum.Success
+        ? Results.Ok( new { message = "secure shell enabled" } )
+        : Results.BadRequest( new { message = "secure shell not enabled" } ) );
+app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
+    temperatureRepository.GetAll( ).Value );
 app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>
     humidityRepository.GetAll( ).Value );
 app.MapGet( "/temperature/current",
@@ -46,10 +52,5 @@ app.MapGet( "/humidity/current", ( IHumidityEventState humidityEventState, IDate
         RelativeHumidity = humidityEventState.Value,
         ReadingAt = dateTimeAdapter.Now( )
     } );
-app.MapGet( "/secureshell", ( IDateTimeAdapter dateTimeAdapter ) => new Humidity
-{
-    RelativeHumidity = 22.2,
-    ReadingAt = dateTimeAdapter.Now( )
-} );
 
 app.Run();
