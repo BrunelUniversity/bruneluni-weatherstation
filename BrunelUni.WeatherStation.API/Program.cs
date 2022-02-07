@@ -28,7 +28,6 @@ app.UseCors( x => x
     .AllowAnyMethod( )
     .AllowAnyOrigin( ) );
 
-app.MapGet( "/ssh", ( ISecureShellService secureShellService ) => "not sure what's happeneing" );
 /*app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
     secureShellService.Deactivate( ).Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell disabled" } )
@@ -49,5 +48,10 @@ app.MapGet( "/humidity/current", ( IHumidityEventState humidityEventState, IDate
         RelativeHumidity = humidityEventState.Value,
         ReadingAt = dateTimeAdapter.Now( )
     } );
+app.MapGet( "/secureshell", ( IDateTimeAdapter dateTimeAdapter ) => new Humidity
+{
+    RelativeHumidity = 22.2,
+    ReadingAt = dateTimeAdapter.Now( )
+} );
 
 app.Run();
