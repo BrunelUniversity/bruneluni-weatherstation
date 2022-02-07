@@ -28,10 +28,7 @@ app.UseCors( x => x
     .AllowAnyMethod( )
     .AllowAnyOrigin( ) );
 
-app.MapGet( "/ssh", ( ISecureShellService secureShellService ) =>
-    secureShellService.Activate( ).Status == OperationResultEnum.Success
-        ? Results.Ok( new { message = "secure shell enabled" } )
-        : Results.BadRequest( new { message = "secure shell not enabled" } ) );
+app.MapGet( "/ssh", ( ISecureShellService secureShellService ) => "not sure what's happeneing" );
 /*app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
     secureShellService.Deactivate( ).Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell disabled" } )
