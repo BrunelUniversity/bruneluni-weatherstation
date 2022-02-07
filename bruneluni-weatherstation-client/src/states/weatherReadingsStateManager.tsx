@@ -12,7 +12,7 @@ const WeatherReadingsStateManager = ( ) =>{
                     const [temp, hum] = x;
                     setWeather([hum, temp, true]);
                 })
-            }, 500)
+            }, 2000)
         }
     })
 
