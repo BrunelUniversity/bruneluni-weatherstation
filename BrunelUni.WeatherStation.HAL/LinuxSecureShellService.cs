@@ -21,7 +21,7 @@ public class LinuxSecureShellService : ILinuxSecureShellService
     {
         _loggerAdapter.LogInfo( "secure shell activated" );
         var result = _processor
-            .RunAndWait( "sudo service", "ssh start" );
+            .RunAndWait( "sudo systemctl ssh start", "" );
         return result.Status == OperationResultEnum.Success
             ? Result.Success( )
             : Result.Error( result.Msg );
@@ -31,7 +31,7 @@ public class LinuxSecureShellService : ILinuxSecureShellService
     {
         _loggerAdapter.LogInfo( "secure shell de-activated" );
         var result = _processor
-            .RunAndWait( "sudo service", "ssh stop" );
+            .RunAndWait( "sudo systemctl ssh stop", "" );
         return result.Status == OperationResultEnum.Success
             ? Result.Success( )
             : Result.Error( result.Msg );
