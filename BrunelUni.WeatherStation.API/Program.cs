@@ -28,14 +28,20 @@ app.UseCors( x => x
     .AllowAnyMethod( )
     .AllowAnyOrigin( ) );
 
-app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
-    secureShellService.Deactivate( ).Status == OperationResultEnum.Success
-        ? Results.Ok( new { message = "secure shell disabled" } )
-        : Results.BadRequest( new { message = "secure shell not disabled" } ) );
 app.MapPost( "/ssh", ( ISecureShellService secureShellService ) =>
-    secureShellService.Activate( ).Status == OperationResultEnum.Success
+{
+    var result = secureShellService.Activate( );
+    return result.Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell enabled" } )
-        : Results.BadRequest( new { message = "secure shell not enabled" } ) );
+        : Results.BadRequest( new { message = result.Msg } );
+} );
+app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
+{
+    var result = secureShellService.Deactivate( );
+    return result.Status == OperationResultEnum.Success
+        ? Results.Ok( new { message = "secure shell disabled" } )
+        : Results.BadRequest( new { message = result.Msg } );
+} );
 app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
     temperatureRepository.GetAll( ).Value );
 app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>
