@@ -20,20 +20,20 @@ public class LinuxSecureShellService : ILinuxSecureShellService
     public Result Activate( )
     {
         _loggerAdapter.LogInfo( "secure shell activated" );
-        return _processor
-            .RunAndWait( "sudo service", "ssh start" )
-            .Status == OperationResultEnum.Success
+        var result = _processor
+            .RunAndWait( "sudo service", "ssh start" );
+        return result.Status == OperationResultEnum.Success
             ? Result.Success( )
-            : Result.Error( "" );
+            : Result.Error( result.Msg );
     }
 
     public Result Deactivate( )
     {
         _loggerAdapter.LogInfo( "secure shell de-activated" );
-        return _processor
-            .RunAndWait( "sudo service", "ssh stop" )
-            .Status == OperationResultEnum.Success
+        var result = _processor
+            .RunAndWait( "sudo service", "ssh stop" );
+        return result.Status == OperationResultEnum.Success
             ? Result.Success( )
-            : Result.Error( "" );
+            : Result.Error( result.Msg );
     }
 }
