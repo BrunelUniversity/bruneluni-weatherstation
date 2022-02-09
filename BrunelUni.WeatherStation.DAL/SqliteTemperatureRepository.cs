@@ -52,7 +52,7 @@ namespace BrunelUni.WeatherStation.DAL
         {
             _weatherContext.TemperatureReadings.Add( temperature );
             _weatherContext.SaveChanges( );
-            _loggingAdapter.LogInfo( $"temperature record created" );
+            _loggingAdapter.LogInfo( $"temperature record created {temperature.Id} of {temperature.Celsius} celsius" );
             return Result.Success( );
         }
     }

@@ -8,5 +8,5 @@ public interface IHumidityRepository
 {
     ObjectResult<IEnumerable<Humidity>> GetAll( );
     ObjectResult<Humidity> GetLatest( );
-    Result Create( Humidity temperature );
+    Result Create( Humidity humidity );
 }

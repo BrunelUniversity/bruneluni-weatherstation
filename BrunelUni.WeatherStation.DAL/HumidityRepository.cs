@@ -2,6 +2,7 @@
 using System.Linq;
 using Aidan.Common.Core;
 using Aidan.Common.Core.Enum;
+using Aidan.Common.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Models;
 
@@ -10,8 +11,13 @@ namespace BrunelUni.WeatherStation.DAL;
 public class HumidityRepository : IHumidityRepository
 {
     private readonly WeatherContext _weatherContext;
+    private readonly ILoggerAdapter<HumidityRepository> _loggerAdapter;
 
-    public HumidityRepository( WeatherContext weatherContext ) { _weatherContext = weatherContext; }
+    public HumidityRepository( WeatherContext weatherContext, ILoggerAdapter<HumidityRepository> loggerAdapter )
+    {
+        _weatherContext = weatherContext;
+        _loggerAdapter = loggerAdapter;
+    }
 
     public ObjectResult<IEnumerable<Humidity>> GetAll( )
     {
@@ -31,9 +37,10 @@ public class HumidityRepository : IHumidityRepository
         };
     }
 
-    public Result Create( Humidity temperature )
+    public Result Create( Humidity humidity )
     {
-        _weatherContext.HumidityReadings.Add( temperature );
+        _weatherContext.HumidityReadings.Add( humidity );
+        _loggerAdapter.LogInfo( $"humidity record created {humidity.Id} of {humidity.RelativeHumidity} relative humidity" );
         _weatherContext.SaveChanges( );
         return Result.Success( );
     }

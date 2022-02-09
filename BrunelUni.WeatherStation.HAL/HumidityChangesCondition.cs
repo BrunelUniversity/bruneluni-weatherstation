@@ -18,10 +18,10 @@ public class HumidityChangesCondition : BaseEventCondition, IHumidityChangesCond
         }
         else
         {
-            loggerAdapter.LogInfo( $"latest humidity value is {latestValue.RelativeHumidity}" );
-            loggerAdapter.LogInfo( $"difference in changes in humidity are {Math.Abs( humidityEventState.Value - latestValue.RelativeHumidity )}" );
+            loggerAdapter.LogDebug( $"latest humidity value is {latestValue.RelativeHumidity}" );
+            loggerAdapter.LogDebug( $"difference in changes in humidity are {Math.Abs( humidityEventState.Value - latestValue.RelativeHumidity )}" );
         }
-        loggerAdapter.LogInfo( $"current humidity value is {humidityRepository.GetLatest( )}" );
+        loggerAdapter.LogDebug( $"current humidity value is {humidityRepository.GetLatest( )}" );
         if( humidityRepository.GetLatest( ).Value == null )
         {
             return true;
