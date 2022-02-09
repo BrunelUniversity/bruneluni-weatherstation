@@ -46,20 +46,20 @@ app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
         : Results.BadRequest( new { message = result.Msg } );
 } ).AddSimpleAuthGaurd( );
 app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
-    temperatureRepository.GetAll( ).Value );
+    Results.Ok( temperatureRepository.GetAll( ).Value ) );
 app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>
-    humidityRepository.GetAll( ).Value );
+    Results.Ok( humidityRepository.GetAll( ).Value ) );
 app.MapGet( "/temperature/current",
-    ( ITemperatureEventState temperatureEventState, IDateTimeAdapter dateTimeAdapter ) => new Temperature
+    ( ITemperatureEventState temperatureEventState, IDateTimeAdapter dateTimeAdapter ) => Results.Ok( new Temperature
     {
         Celsius = temperatureEventState.Value,
         ReadingAt = dateTimeAdapter.Now( )
-    } );
+    } ) );
 app.MapGet( "/humidity/current", ( IHumidityEventState humidityEventState, IDateTimeAdapter dateTimeAdapter ) =>
-    new Humidity
+    Results.Ok( new Humidity
     {
         RelativeHumidity = humidityEventState.Value,
         ReadingAt = dateTimeAdapter.Now( )
-    } );
+    } ) );
 
 app.Run();

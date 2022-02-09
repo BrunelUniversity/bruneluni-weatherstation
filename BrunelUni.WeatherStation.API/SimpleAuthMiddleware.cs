@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Aidan.Common.Core.Interfaces.Contract;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 
@@ -13,9 +15,19 @@ public class SimpleAuthMiddleware
 
     public SimpleAuthMiddleware( RequestDelegate next ) { _next = next; }
 
-    public async Task Invoke( HttpContext context )
+    public async Task Invoke( HttpContext context,
+        [ FromServices ] ILoggerAdapter<SimpleAuthMiddleware> simpleAuthMiddleware )
     {
-        if( context.GetEndpoint( )?.Metadata.GetMetadata<SimpleAuthMeta>( ) == null ) await _next.Invoke( context );
+        simpleAuthMiddleware.LogDebug( "entering auth" );
+        
+        if( context.GetEndpoint( )?.Metadata.GetMetadata<SimpleAuthMeta>( ) == null )
+        {
+            simpleAuthMiddleware.LogDebug( "no auth required for endpoint" );
+            await _next.Invoke( context );
+            return;
+        }
+        
+        simpleAuthMiddleware.LogInfo( "auth required for endpoint" );
         
         StringValues header;
         var isHeaderPresent = context.Request.Headers.TryGetValue( "Simple-Auth-Key", out header );

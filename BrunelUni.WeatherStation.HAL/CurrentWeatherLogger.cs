@@ -14,9 +14,9 @@ public class CurrentWeatherLogger : BasePollingService, ICurrentWeatherLogger
         IHumidityEventState humidityEventState )
         : base( ( ) =>
         {
-            loggerAdapter.LogDebug( $"current temperature value is {temperatureEventState.Value}" );
-            loggerAdapter.LogDebug( $"current humidity value is {humidityEventState.Value}" );
-        }, 30000, taskService )
+            loggerAdapter.LogInfo( $"current temperature value is {temperatureEventState.Value}" );
+            loggerAdapter.LogInfo( $"current humidity value is {humidityEventState.Value}" );
+        }, 20000, taskService )
     {
     }
 }
