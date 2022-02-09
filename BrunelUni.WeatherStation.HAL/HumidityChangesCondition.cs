@@ -14,7 +14,7 @@ public class HumidityChangesCondition : BaseEventCondition, IHumidityChangesCond
         var latestValue = humidityRepository.GetLatest( ).Value;
         if( latestValue == null )
         {
-            loggerAdapter.LogInfo( $"latest humidity value is null" );
+            loggerAdapter.LogError( $"latest humidity value is null" );
         }
         else
         {

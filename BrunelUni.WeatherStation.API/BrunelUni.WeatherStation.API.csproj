@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Aidan.Common.Utils" Version="1.0.29" />
+      <PackageReference Include="Aidan.Common.Utils" Version="1.0.30" />
     </ItemGroup>
 
     <ItemGroup>

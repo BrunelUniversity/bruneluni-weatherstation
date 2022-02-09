@@ -14,7 +14,7 @@ public class TemperatureChangesCondition : BaseEventCondition, ITemperatureChang
         var latestValue = temperatureRepository.GetLatest( ).Value;
         if( latestValue == null )
         {
-            loggerAdapter.LogInfo( $"latest temperature value is null" );
+            loggerAdapter.LogError( $"latest temperature value is null" );
         }
         else
         {

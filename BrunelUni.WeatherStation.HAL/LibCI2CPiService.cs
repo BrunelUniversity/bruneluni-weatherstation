@@ -18,15 +18,15 @@ namespace BrunelUni.WeatherStation.HAL
             _loggerAdapter = loggerAdapter;
             var file = "/dev/i2c-1";
             _handle = _libcAdapter.Open( file, 2 );
-            _loggerAdapter.LogInfo( $"opened i2c bus {file} to read" );
+            _loggerAdapter.LogDebug( $"opened i2c bus {file} to read" );
             _libcAdapter.Ioctl( _handle, 1795, address );
-            _loggerAdapter.LogInfo( $"using i2c at 0x{address:X} address" );
+            _loggerAdapter.LogDebug( $"using i2c at 0x{address:X} address" );
         }
 
         public Result WriteBytes( byte [ ] data )
         {
             _libcAdapter.Write( _handle, data, data.Length );
-            _loggerAdapter.LogInfo( $"writing {data.Aggregate( "", ( current, b ) => current + $"0x{b:X} " )}" );
+            _loggerAdapter.LogDebug( $"writing {data.Aggregate( "", ( current, b ) => current + $"0x{b:X} " )}" );
             return Result.Success( );
         }
 
@@ -34,7 +34,7 @@ namespace BrunelUni.WeatherStation.HAL
         {
             var array = new byte[ length ];
             _libcAdapter.Read( _handle, array, length );
-            _loggerAdapter.LogInfo( $"read {array.Aggregate( "", ( current, b ) => current + $"0x{b:X} " )}" );
+            _loggerAdapter.LogDebug( $"read {array.Aggregate( "", ( current, b ) => current + $"0x{b:X} " )}" );
             return new ObjectResult<byte [ ]>
             {
                 Status = OperationResultEnum.Success,
