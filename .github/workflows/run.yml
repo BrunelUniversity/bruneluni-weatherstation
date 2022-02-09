@@ -56,6 +56,5 @@ jobs:
           password: ${{ secrets.PSWD }}
           port: 2244
           script: |
-            export SIMPLE_AUTH_KEY=${{ secrets.API_KEY }}
             sudo systemctl restart nginx
             sudo systemctl restart weatherstation
