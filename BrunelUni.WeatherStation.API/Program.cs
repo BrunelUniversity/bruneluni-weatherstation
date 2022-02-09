@@ -1,6 +1,7 @@
 using Aidan.Common.Core.Enum;
 using Aidan.Common.Core.Interfaces.Contract;
 using Aidan.Common.Core.Interfaces.Excluded;
+using BrunelUni.WeatherStation.API;
 using BrunelUni.WeatherStation.Core.Interfaces.Contract;
 using BrunelUni.WeatherStation.Core.Models;
 using BrunelUni.WeatherStation.Crosscutting.DIModule;
@@ -28,20 +29,22 @@ app.UseCors( x => x
     .AllowAnyMethod( )
     .AllowAnyOrigin( ) );
 
+app.UseMiddleware<SimpleAuthMiddleware>( );
+
 app.MapPost( "/ssh", ( ISecureShellService secureShellService ) =>
 {
     var result = secureShellService.Activate( );
     return result.Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell enabled" } )
         : Results.BadRequest( new { message = result.Msg } );
-} );
+} ).AddSimpleAuthGaurd( );
 app.MapDelete( "/ssh", ( ISecureShellService secureShellService ) =>
 {
     var result = secureShellService.Deactivate( );
     return result.Status == OperationResultEnum.Success
         ? Results.Ok( new { message = "secure shell disabled" } )
         : Results.BadRequest( new { message = result.Msg } );
-} );
+} ).AddSimpleAuthGaurd( );
 app.MapGet( "/temperature", ( ITemperatureRepository temperatureRepository ) =>
     temperatureRepository.GetAll( ).Value );
 app.MapGet( "/humidity", ( IHumidityRepository humidityRepository ) =>

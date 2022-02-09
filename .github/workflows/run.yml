@@ -9,6 +9,7 @@ jobs:
       UNAME: ${{ secrets.UNAME }}
       PSWD: ${{ secrets.PSWD }}
       HOST: ${{ secrets.HOST }}
+      API_KEY: ${{ secrets.API_KEY }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -55,5 +56,6 @@ jobs:
           password: ${{ secrets.PSWD }}
           port: 2244
           script: |
+            export SIMPLE_AUTH_KEY=${{ secrets.API_KEY }}
             sudo systemctl restart nginx
             sudo systemctl restart weatherstation
